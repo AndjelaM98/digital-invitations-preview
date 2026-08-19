@@ -314,6 +314,20 @@
   text-align: left;
 }
 
+.ll__party-prompt span {
+  display: block;
+}
+
+.ll__art--tower,
+.ll-dance__guests,
+.ll-dance__cheers,
+.ll-dance__lights,
+.ll-frame__art,
+.ll-toast__center,
+.ll-toast__item {
+  will-change: transform;
+}
+
 .ll__party-details {
   display: grid;
   justify-items: start;
@@ -440,6 +454,7 @@
   max-width: 48%;
   object-fit: contain;
   object-position: bottom center;
+  transform-origin: bottom center;
 }
 
 .ll-dance__guests {

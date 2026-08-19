@@ -141,26 +141,76 @@
 
 @media (max-width: 767px) {
   .qb-intro__grid {
-    grid-template-columns: auto minmax(6.75rem, 44vw) auto;
-    column-gap: 0.6rem;
-    row-gap: 0.1em;
-    max-width: 96vw;
-    padding-inline: 0.55rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    min-height: 100dvh;
+    box-sizing: border-box;
+    padding:
+      max(2.75rem, calc(env(safe-area-inset-top, 0px) + 1.5rem))
+      1.15rem
+      max(2.5rem, calc(env(safe-area-inset-bottom, 0px) + 1.35rem));
+    row-gap: 0;
+    column-gap: 0;
   }
 
-  .qb-intro__num {
-    font-size: min(24dvh, 36vw);
-    line-height: 0.84;
+  .qb-intro__date {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: center;
+    gap: clamp(0.55rem, 3.5vw, 1rem);
+    width: 100%;
+    flex: 0 0 auto;
   }
 
-  .qb-intro__initials {
-    font-size: min(14dvh, 22vw);
+  .qb-intro__num,
+  .qb-intro__num--0,
+  .qb-intro__num--1,
+  .qb-intro__num--2 {
+    grid-area: unset;
+    justify-self: unset;
+    font-size: clamp(3.4rem, 18vw, 5.25rem);
+    line-height: 0.9;
+    letter-spacing: -0.045em;
   }
 
   .qb-intro__script {
-    font-size: clamp(1.45rem, 5vw, 2.05rem);
-    padding-inline: 0.25rem;
-    gap: 0.12em;
+    grid-area: unset;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: min(100%, 20.5rem);
+    max-width: 100%;
+    margin: 0;
+    padding-inline: 0.65rem;
+    gap: 0.22em;
+    font-size: clamp(1.55rem, 6.2vw, 2.15rem);
+    line-height: 1.28;
+    white-space: normal;
+  }
+
+  .qb-intro__line {
+    white-space: normal;
+    max-width: 100%;
+  }
+
+  .qb-intro__initials {
+    grid-area: unset;
+    flex: 0 0 auto;
+    justify-content: center;
+    justify-self: unset;
+    align-self: center;
+    width: 100%;
+    margin: 0;
+    font-size: clamp(2.75rem, 16vw, 4.25rem);
+    letter-spacing: -0.03em;
   }
 
   .qb-gallery {

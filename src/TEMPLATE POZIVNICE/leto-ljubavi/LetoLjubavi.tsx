@@ -4,6 +4,8 @@ import {
 
   AnimatePresence,
 
+  useInView,
+
   useReducedMotion,
 
   useScroll,
@@ -101,6 +103,502 @@ function MapButton({ href, label }: { href?: string; label: string }) {
       {label}
 
     </a>
+
+  );
+
+}
+
+
+
+type GentleFloatOptions = {
+
+  y?: number;
+
+  x?: number;
+
+  rotate?: number;
+
+  duration?: number;
+
+  delay?: number;
+
+};
+
+
+
+function useSectionFloat<T extends HTMLElement = HTMLElement>(amount = 0.28) {
+
+  const ref = useRef<T>(null);
+
+  const reduce = useReducedMotion();
+
+  const inView = useInView(ref, {
+
+    amount,
+
+    margin: "0px 0px -6% 0px",
+
+  });
+
+  return { ref, active: !reduce && inView, reduce };
+
+}
+
+
+
+function gentleFloatMotion(active: boolean, opts: GentleFloatOptions = {}) {
+
+  const y = opts.y ?? 8;
+
+  const x = opts.x ?? 0;
+
+  const rotate = opts.rotate ?? 0;
+
+  if (!active) {
+
+    return {
+
+      animate: { y: 0, x: 0, rotate: 0 },
+
+      transition: { duration: 0.35, ease: invitationEase },
+
+    };
+
+  }
+
+  const animate: Record<string, number | number[]> = { y: [0, -y, 0] };
+
+  if (x) animate.x = [0, x, 0, -x, 0];
+
+  if (rotate) animate.rotate = [-rotate, rotate, -rotate];
+
+  return {
+
+    animate,
+
+    transition: {
+
+      duration: opts.duration ?? 4.8,
+
+      repeat: Infinity,
+
+      ease: "easeInOut" as const,
+
+      delay: opts.delay ?? 0,
+
+    },
+
+  };
+
+}
+
+
+
+function PartyPromptWords({ text }: { text: string }) {
+
+  const ref = useRef<HTMLParagraphElement>(null);
+
+  const reduce = useReducedMotion();
+
+  const inView = useInView(ref, { amount: 0.45, once: true });
+
+  const words = text.trim().split(/\s+/);
+
+
+
+  return (
+
+    <p ref={ref} className="ll__script ll__party-prompt">
+
+      {words.map((word, index) => (
+
+        <motion.span
+
+          key={`${word}-${index}`}
+
+          initial={reduce ? false : { opacity: 0, y: 14 }}
+
+          animate={
+
+            reduce || inView
+
+              ? { opacity: 1, y: 0 }
+
+              : { opacity: 0, y: 14 }
+
+          }
+
+          transition={{
+
+            duration: 0.62,
+
+            delay: index * 0.38,
+
+            ease: invitationEase,
+
+          }}
+
+        >
+
+          {word}
+
+        </motion.span>
+
+      ))}
+
+    </p>
+
+  );
+
+}
+
+
+
+function DanceSection() {
+
+  const { ref, active } = useSectionFloat<HTMLElement>(0.22);
+
+  const lights = gentleFloatMotion(active, { rotate: 1.1, duration: 6.4 });
+
+  const guests = gentleFloatMotion(active, {
+
+    y: 10,
+
+    x: 5,
+
+    duration: 3.8,
+
+  });
+
+  const cheers = gentleFloatMotion(active, {
+
+    y: 9,
+
+    x: 4,
+
+    duration: 4.2,
+
+    delay: 0.35,
+
+  });
+
+
+
+  return (
+
+    <section ref={ref} className="ll__block ll-dance" aria-label="Proslava">
+
+      <motion.img
+
+        className="ll-dance__lights"
+
+        src={letoAssets.lights}
+
+        alt=""
+
+        draggable={false}
+
+        style={{ transformOrigin: "50% 0%" }}
+
+        {...lights}
+
+      />
+
+      <div className="ll-dance__floor">
+
+        <motion.img
+
+          className="ll-dance__guests"
+
+          src={letoAssets.dancers}
+
+          alt=""
+
+          draggable={false}
+
+          {...guests}
+
+        />
+
+        <motion.img
+
+          className="ll-dance__cheers"
+
+          src={letoAssets.dancersCheers}
+
+          alt=""
+
+          draggable={false}
+
+          {...cheers}
+
+        />
+
+      </div>
+
+    </section>
+
+  );
+
+}
+
+
+
+function TripDateToast({
+
+  dates,
+
+  place,
+
+}: {
+
+  dates: string;
+
+  place: string;
+
+}) {
+
+  const { ref, active } = useSectionFloat<HTMLElement>(0.32);
+
+  const center = gentleFloatMotion(active, { y: 7, rotate: 0.35, duration: 5.2, delay: 0.15 });
+
+
+
+  return (
+
+    <section ref={ref} className="ll-toast" aria-label="Nazdravljanje">
+
+      <div className="ll-toast__slot ll-toast__slot--tl">
+
+        <motion.img
+
+          className="ll-toast__item"
+
+          src={letoAssets.toastGlassTl}
+
+          alt=""
+
+          draggable={false}
+
+          {...gentleFloatMotion(active, { y: 5, duration: 5.6 })}
+
+        />
+
+      </div>
+
+      <div className="ll-toast__slot ll-toast__slot--wine">
+
+        <motion.img
+
+          className="ll-toast__item"
+
+          src={letoAssets.wineHand}
+
+          alt=""
+
+          draggable={false}
+
+          {...gentleFloatMotion(active, { y: 5, duration: 5.8, delay: 0.2 })}
+
+        />
+
+      </div>
+
+      <div className="ll-toast__slot ll-toast__slot--flute">
+
+        <motion.img
+
+          className="ll-toast__item"
+
+          src={letoAssets.fluteHand}
+
+          alt=""
+
+          draggable={false}
+
+          {...gentleFloatMotion(active, { y: 5, duration: 6, delay: 0.35 })}
+
+        />
+
+      </div>
+
+      <div className="ll-toast__slot ll-toast__slot--br">
+
+        <motion.img
+
+          className="ll-toast__item"
+
+          src={letoAssets.toastGlassBr}
+
+          alt=""
+
+          draggable={false}
+
+          {...gentleFloatMotion(active, { y: 5, duration: 5.7, delay: 0.15 })}
+
+        />
+
+      </div>
+
+      <div className="ll-toast__slot ll-toast__slot--bottle">
+
+        <motion.img
+
+          className="ll-toast__item"
+
+          src={letoAssets.toastBottleBl}
+
+          alt=""
+
+          draggable={false}
+
+          {...gentleFloatMotion(active, { y: 5, duration: 6.1, delay: 0.45 })}
+
+        />
+
+      </div>
+
+      <div className="ll-toast__slot ll-toast__slot--clink">
+
+        <motion.img
+
+          className="ll-toast__item"
+
+          src={letoAssets.clinkHeart}
+
+          alt=""
+
+          draggable={false}
+
+          {...gentleFloatMotion(active, { y: 4, duration: 4.8 })}
+
+        />
+
+      </div>
+
+      <motion.div className="ll-toast__center" {...center}>
+
+        <doodles.Heart className="ll__heart" />
+
+        <p className="ll__dates">{dates}</p>
+
+        <p className="ll__address">{place}</p>
+
+      </motion.div>
+
+    </section>
+
+  );
+
+}
+
+
+
+function ChampagneTowerArt() {
+
+  const { ref, active } = useSectionFloat<HTMLImageElement>(0.25);
+
+  const float = gentleFloatMotion(active, {
+
+    y: 10,
+
+    rotate: 0.75,
+
+    duration: 5.4,
+
+  });
+
+
+
+  return (
+
+    <ScrollReveal amount={0.2}>
+
+      <motion.img
+
+        ref={ref}
+
+        className="ll__art ll__art--tower"
+
+        src={letoAssets.champagneTower}
+
+        alt=""
+
+        draggable={false}
+
+        {...float}
+
+      />
+
+    </ScrollReveal>
+
+  );
+
+}
+
+
+
+function ExtraDayFrame({
+
+  line,
+
+  aside,
+
+}: {
+
+  line: string;
+
+  aside: string;
+
+}) {
+
+  const { ref, active } = useSectionFloat<HTMLImageElement>(0.3);
+
+  const frameFloat = gentleFloatMotion(active, {
+
+    y: 8,
+
+    rotate: 0.45,
+
+    duration: 5.8,
+
+  });
+
+
+
+  return (
+
+    <section className="ll__block ll-frame-wrap">
+
+      <ScrollReveal className="ll-frame" amount={0.3}>
+
+        <motion.img
+
+          ref={ref}
+
+          className="ll-frame__art"
+
+          src={letoAssets.frame}
+
+          alt=""
+
+          draggable={false}
+
+          {...frameFloat}
+
+        />
+
+        <div className="ll-frame__copy">
+
+          <p className="ll__serif">{line}</p>
+
+          <p className="ll__script ll__box-aside">{aside}</p>
+
+        </div>
+
+      </ScrollReveal>
+
+    </section>
 
   );
 
@@ -218,46 +716,6 @@ function LetoLjubavi({
 
   const reduce = useReducedMotion();
 
-  const floatY = reduce
-
-    ? {}
-
-    : {
-
-        animate: { y: [0, -5, 0] },
-
-        transition: {
-
-          duration: 5.5,
-
-          repeat: Infinity,
-
-          ease: "easeInOut" as const,
-
-        },
-
-      };
-
-  const sway = reduce
-
-    ? {}
-
-    : {
-
-        animate: { rotate: [-0.5, 0.5, -0.5] },
-
-        transition: {
-
-          duration: 7,
-
-          repeat: Infinity,
-
-          ease: "easeInOut" as const,
-
-        },
-
-      };
-
 
 
   return (
@@ -295,21 +753,7 @@ function LetoLjubavi({
 
           </ScrollReveal>
 
-          <ScrollReveal amount={0.2}>
-
-            <img
-
-              className="ll__art ll__art--tower"
-
-              src={letoAssets.champagneTower}
-
-              alt=""
-
-              draggable={false}
-
-            />
-
-          </ScrollReveal>
+          <ChampagneTowerArt />
 
           <ScrollReveal delay={0.08}>
 
@@ -429,71 +873,13 @@ function LetoLjubavi({
 
 
 
-        <section className="ll__block ll-dance" aria-label="Proslava">
-
-          <motion.img
-
-            className="ll-dance__lights"
-
-            src={letoAssets.lights}
-
-            alt=""
-
-            draggable={false}
-
-            style={{ transformOrigin: "50% 0%" }}
-
-            {...sway}
-
-          />
-
-          <div className="ll-dance__floor">
-
-            <motion.img
-
-              className="ll-dance__guests"
-
-              src={letoAssets.dancers}
-
-              alt=""
-
-              draggable={false}
-
-              {...floatY}
-
-            />
-
-            <motion.img
-
-              className="ll-dance__cheers"
-
-              src={letoAssets.dancersCheers}
-
-              alt=""
-
-              draggable={false}
-
-              {...floatY}
-
-            />
-
-          </div>
-
-        </section>
+        <DanceSection />
 
 
 
         <ScrollReveal className="ll__block ll__party" as="section">
 
-          <p className="ll__script ll__party-prompt">
-
-            <span>Gde</span>
-
-            <span>idemo</span>
-
-            <span>dalje?</span>
-
-          </p>
+          <PartyPromptWords text={data.partyPrompt} />
 
           <div className="ll__party-details">
 
@@ -515,33 +901,7 @@ function LetoLjubavi({
 
 
 
-        <section className="ll__block ll-frame-wrap">
-
-          <ScrollReveal className="ll-frame" amount={0.3}>
-
-            <img
-
-              className="ll-frame__art"
-
-              src={letoAssets.frame}
-
-              alt=""
-
-              draggable={false}
-
-            />
-
-            <div className="ll-frame__copy">
-
-              <p className="ll__serif">{data.extraDayBox.line}</p>
-
-              <p className="ll__script ll__box-aside">{data.extraDayBox.aside}</p>
-
-            </div>
-
-          </ScrollReveal>
-
-        </section>
+        <ExtraDayFrame line={data.extraDayBox.line} aside={data.extraDayBox.aside} />
 
 
 
@@ -553,139 +913,7 @@ function LetoLjubavi({
 
 
 
-        <section className="ll-toast" aria-label="Nazdravljanje">
-
-          <div className="ll-toast__slot ll-toast__slot--tl">
-
-            <motion.img
-
-              className="ll-toast__item"
-
-              src={letoAssets.toastGlassTl}
-
-              alt=""
-
-              draggable={false}
-
-              animate={reduce ? undefined : { y: [0, -4, 0] }}
-
-              transition={{ duration: 5.6, repeat: Infinity, ease: "easeInOut" }}
-
-            />
-
-          </div>
-
-          <div className="ll-toast__slot ll-toast__slot--wine">
-
-            <motion.img
-
-              className="ll-toast__item"
-
-              src={letoAssets.wineHand}
-
-              alt=""
-
-              draggable={false}
-
-              animate={reduce ? undefined : { y: [0, -4, 0] }}
-
-              transition={{ duration: 5.8, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
-
-            />
-
-          </div>
-
-          <div className="ll-toast__slot ll-toast__slot--flute">
-
-            <motion.img
-
-              className="ll-toast__item"
-
-              src={letoAssets.fluteHand}
-
-              alt=""
-
-              draggable={false}
-
-              animate={reduce ? undefined : { y: [0, -4, 0] }}
-
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.35 }}
-
-            />
-
-          </div>
-
-          <div className="ll-toast__slot ll-toast__slot--br">
-
-            <motion.img
-
-              className="ll-toast__item"
-
-              src={letoAssets.toastGlassBr}
-
-              alt=""
-
-              draggable={false}
-
-              animate={reduce ? undefined : { y: [0, -4, 0] }}
-
-              transition={{ duration: 5.7, repeat: Infinity, ease: "easeInOut", delay: 0.15 }}
-
-            />
-
-          </div>
-
-          <div className="ll-toast__slot ll-toast__slot--bottle">
-
-            <motion.img
-
-              className="ll-toast__item"
-
-              src={letoAssets.toastBottleBl}
-
-              alt=""
-
-              draggable={false}
-
-              animate={reduce ? undefined : { y: [0, -4, 0] }}
-
-              transition={{ duration: 6.1, repeat: Infinity, ease: "easeInOut", delay: 0.45 }}
-
-            />
-
-          </div>
-
-          <div className="ll-toast__slot ll-toast__slot--clink">
-
-            <motion.img
-
-              className="ll-toast__item"
-
-              src={letoAssets.clinkHeart}
-
-              alt=""
-
-              draggable={false}
-
-              animate={reduce ? undefined : { y: [0, -3, 0] }}
-
-              transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut" }}
-
-            />
-
-          </div>
-
-          <div className="ll-toast__center">
-
-            <doodles.Heart className="ll__heart" />
-
-            <p className="ll__dates">{data.tripDates}</p>
-
-            <p className="ll__address">{data.tripPlace}</p>
-
-          </div>
-
-        </section>
+        <TripDateToast dates={data.tripDates} place={data.tripPlace} />
 
 
 
