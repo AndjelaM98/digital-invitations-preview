@@ -32,9 +32,14 @@ http://localhost:5173/digital-invitations-preview/
 ## Deployment
 
 Push na `main` pokreće GitHub Actions workflow `.github/workflows/deploy-pages.yml`.
+Workflow gradi sajt i objavljuje ga na granu `gh-pages`.
 
-Jednom, u GitHubu (vlasnik repoa):
+Jednom, u GitHubu (vlasnik repoa **AndjelaM98**):
 
 1. Otvori [Settings → Pages](https://github.com/AndjelaM98/digital-invitations-preview/settings/pages)
-2. Source: **GitHub Actions**
-3. Ponovo pokreni workflow u [Actions](https://github.com/AndjelaM98/digital-invitations-preview/actions)
+2. **Build and deployment → Source:** `Deploy from a branch`
+3. **Branch:** `gh-pages` / folder `/(root)`
+4. Sačuvaj
+5. Sačekaj 1–2 minuta, pa otvori sajt
+
+Ako workflow još nije kreirao granu `gh-pages`, prvo pokreni Actions workflow (push ili **Run workflow**), pa tek onda izaberi granu u Pages podešavanjima.
