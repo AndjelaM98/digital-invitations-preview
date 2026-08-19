@@ -1,0 +1,58 @@
+.full-invitation {
+  min-height: 100vh;
+  background: #f7f1e6;
+}
+
+.full-invitation--empty {
+  display: grid;
+  place-content: center;
+  gap: 1rem;
+  min-height: 70vh;
+  padding: 2rem;
+  text-align: center;
+  font-family: "Cormorant Garamond", serif;
+  color: #4e5a46;
+}
+
+.full-invitation__eyebrow {
+  margin: 0;
+  font-family: var(--font-body, "Montserrat", sans-serif);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, #4e5a46 50%, transparent);
+}
+
+.full-invitation__bar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem clamp(1.15rem, 4vw, 2rem);
+  background: color-mix(in srgb, #f7f1e6 92%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid color-mix(in srgb, #caa290 28%, transparent);
+}
+
+.full-invitation__back {
+  font-family: var(--font-body, "Montserrat", sans-serif);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: color-mix(in srgb, #4e5a46 60%, transparent);
+}
+
+.full-invitation__back:hover {
+  color: #4e5a46;
+}
+
+.full-invitation__bar-title {
+  margin: 0;
+  font-family: var(--font-script, "Allura", cursive);
+  font-size: 1.55rem;
+  color: #4e5a46;
+}

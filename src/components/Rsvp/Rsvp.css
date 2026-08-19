@@ -1,0 +1,300 @@
+.rsvp-form {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0 auto;
+  max-width: 16rem;
+  text-align: left;
+}
+
+.rsvp-form__deadline {
+  margin: 0 0 0.25rem;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  text-align: center;
+  color: color-mix(in srgb, #2a2624 68%, transparent);
+}
+
+.rsvp-form__field {
+  display: grid;
+  gap: 0.3rem;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: color-mix(in srgb, #2a2624 62%, transparent);
+}
+
+.rsvp-form__field input,
+.rsvp-form__field select {
+  width: 100%;
+  min-height: 2.35rem;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid color-mix(in srgb, #2a2624 18%, transparent);
+  border-radius: 0.35rem;
+  background: #fffdf9;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: #2a2624;
+}
+
+.rsvp-form__attendance {
+  margin: 0;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid color-mix(in srgb, #2a2624 18%, transparent);
+  border-radius: 0.35rem;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.rsvp-form__attendance legend {
+  padding: 0 0.2rem;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: color-mix(in srgb, #2a2624 62%, transparent);
+}
+
+.rsvp-form__attendance label {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: #2a2624;
+  cursor: pointer;
+}
+
+.rsvp-form__submit {
+  margin-top: 0.15rem;
+  min-height: 2.4rem;
+  border: 0;
+  border-radius: 0.35rem;
+  background: color-mix(in srgb, var(--color-dusty-rose) 55%, #2a2624);
+  color: #faf6f0;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.rsvp-form__submit:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.rsvp-form__error {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: #8a4a3a;
+}
+
+.rsvp-form--done {
+  text-align: center;
+}
+
+.rsvp-form__thanks {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 400;
+}
+
+.rsvp-form__again {
+  border: 0;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, #2a2624 55%, var(--color-terracotta));
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+/* —— Couple dashboard —— */
+
+.rsvp-dashboard {
+  display: grid;
+  gap: 1rem;
+}
+
+.rsvp-dashboard--empty {
+  padding: 1.25rem 0;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--studio-ink, #2e2a28) 62%, transparent);
+}
+
+.rsvp-dashboard__eyebrow {
+  margin: 0 0 0.35rem;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--studio-ink, #2e2a28) 48%, var(--color-terracotta));
+}
+
+.rsvp-dashboard__title {
+  margin: 0 0 0.45rem;
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 400;
+  color: var(--studio-ink, #2e2a28);
+}
+
+.rsvp-dashboard__lede {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--studio-ink, #2e2a28) 62%, transparent);
+}
+
+.rsvp-dashboard__stats {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.rsvp-dashboard__stats li {
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.7rem 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--color-warm-beige) 45%, transparent);
+  border-radius: 0.75rem;
+  background: color-mix(in srgb, #fffaf3 45%, transparent);
+}
+
+.rsvp-dashboard__stats span {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--studio-ink, #2e2a28) 52%, transparent);
+}
+
+.rsvp-dashboard__stats strong {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 400;
+  color: var(--studio-ink, #2e2a28);
+}
+
+.rsvp-dashboard__note {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: color-mix(in srgb, var(--studio-ink, #2e2a28) 48%, transparent);
+}
+
+.rsvp-dashboard__list-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.rsvp-dashboard__list-head h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 400;
+}
+
+.rsvp-dashboard__refresh {
+  border: 0;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--studio-ink, #2e2a28) 55%, var(--color-terracotta));
+  cursor: pointer;
+}
+
+.rsvp-dashboard__empty-list {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--studio-ink, #2e2a28) 55%, transparent);
+}
+
+.rsvp-dashboard__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.55rem;
+  max-height: 18rem;
+  overflow: auto;
+}
+
+.rsvp-dashboard__list li {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.7rem 0.75rem;
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--color-warm-beige) 42%, transparent);
+  font-family: var(--font-body);
+  font-size: 0.86rem;
+}
+
+.rsvp-dashboard__list strong {
+  font-weight: 500;
+  color: var(--studio-ink, #2e2a28);
+}
+
+.rsvp-dashboard__companions {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.78rem;
+  color: color-mix(in srgb, var(--studio-ink, #2e2a28) 55%, transparent);
+}
+
+.rsvp-dashboard__meta {
+  display: grid;
+  gap: 0.25rem;
+  justify-items: end;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.rsvp-dashboard__meta time {
+  font-size: 0.72rem;
+  color: color-mix(in srgb, var(--studio-ink, #2e2a28) 48%, transparent);
+}
+
+.rsvp-dashboard__badge {
+  display: inline-flex;
+  padding: 0.2rem 0.45rem;
+  border-radius: 0.3rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.rsvp-dashboard__badge.is-yes {
+  background: color-mix(in srgb, var(--color-sage) 28%, #fff);
+  color: color-mix(in srgb, #2e2a28 70%, #4a5a42);
+}
+
+.rsvp-dashboard__badge.is-no {
+  background: color-mix(in srgb, var(--color-dusty-rose) 22%, #fff);
+  color: color-mix(in srgb, #2e2a28 65%, #8a4a3a);
+}
+
+@media (min-width: 720px) {
+  .rsvp-dashboard__stats {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}

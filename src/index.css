@@ -1,0 +1,61 @@
+:root {
+  --color-bg: #f7f1e6;
+  --color-warm-beige: #caa290;
+  --color-dusty-rose: #c4a69b;
+  --color-terracotta: #c26d53;
+  --color-sage: #a3ae9a;
+  --color-light-sage: #bfc9b3;
+  --color-muted-sage: #c5ceba;
+  --color-soft-green: #cad2c0;
+  --color-text: #2e2a28;
+
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-script: "Allura", cursive;
+  --font-body: "Montserrat", system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto;
+  overflow-x: clip;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow-x: clip;
+  font-family: var(--font-body);
+  font-weight: 400;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 500;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+#root {
+  overflow-x: clip;
+}

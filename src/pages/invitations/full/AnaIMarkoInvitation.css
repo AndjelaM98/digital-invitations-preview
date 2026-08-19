@@ -1,0 +1,120 @@
+.ami {
+  --ami-ink: #4e5a46;
+  --ami-accent: #c4a69b;
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 6vw, 4rem) clamp(1.25rem, 4vw, 2rem)
+    clamp(4rem, 8vw, 6rem);
+  color: var(--ami-ink);
+}
+
+.ami__hero {
+  text-align: center;
+  padding-bottom: clamp(2.5rem, 5vw, 3.5rem);
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+  border-bottom: 1px solid color-mix(in srgb, var(--ami-accent) 35%, transparent);
+}
+
+.ami__eyebrow {
+  margin: 0 0 1rem;
+  font-family: var(--font-script, "Allura", cursive);
+  font-size: clamp(1.55rem, 3vw, 2rem);
+  color: color-mix(in srgb, var(--ami-ink) 45%, var(--ami-accent));
+}
+
+.ami__names {
+  margin: 0 0 1rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(2.8rem, 7vw, 4.25rem);
+  font-weight: 500;
+  line-height: 1.05;
+}
+
+.ami__names em {
+  font-family: var(--font-script, "Allura", cursive);
+  font-style: normal;
+  font-size: 0.72em;
+  color: color-mix(in srgb, var(--ami-ink) 50%, var(--ami-accent));
+}
+
+.ami__date {
+  margin: 0;
+  font-family: var(--font-body, "Montserrat", sans-serif);
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--ami-ink) 58%, transparent);
+}
+
+.ami__section {
+  margin-bottom: clamp(2.25rem, 5vw, 3.25rem);
+}
+
+.ami__section--split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.ami__section--center {
+  text-align: center;
+  padding-top: 1rem;
+}
+
+.ami__heading {
+  margin: 0 0 0.85rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(1.45rem, 2.5vw, 1.75rem);
+  font-weight: 500;
+}
+
+.ami__meta {
+  margin: 0 0 0.45rem;
+  font-family: var(--font-script, "Allura", cursive);
+  font-size: 1.45rem;
+  color: color-mix(in srgb, var(--ami-ink) 48%, var(--ami-accent));
+}
+
+.ami__body {
+  margin: 0;
+  font-family: var(--font-body, "Montserrat", sans-serif);
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: color-mix(in srgb, var(--ami-ink) 72%, transparent);
+}
+
+.ami__timeline {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.ami__timeline li {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  gap: 1rem;
+  font-family: var(--font-body, "Montserrat", sans-serif);
+  font-size: 0.92rem;
+  color: color-mix(in srgb, var(--ami-ink) 75%, transparent);
+}
+
+.ami__timeline span {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.1rem;
+  color: var(--ami-ink);
+}
+
+.ami__closing {
+  margin: 1.5rem 0 0;
+  font-family: var(--font-script, "Allura", cursive);
+  font-size: 1.85rem;
+  color: color-mix(in srgb, var(--ami-ink) 50%, var(--ami-accent));
+}
+
+@media (max-width: 560px) {
+  .ami__section--split {
+    grid-template-columns: 1fr;
+  }
+}

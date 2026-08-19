@@ -1,0 +1,85 @@
+import { motion, useInView, useReducedMotion } from "framer-motion";
+import { useRef } from "react";
+
+import { invitationEase } from "../../shared/motion";
+import type { InvitationContent } from "../../shared/types";
+import ErReveal from "../ErReveal";
+
+type StorySectionProps = {
+  content: InvitationContent;
+};
+
+function parseEventParts(iso: string) {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) {
+    return { day: "12", month: "09", year: "2026" };
+  }
+  const day = String(d.getDate()).padStart(2, "0");
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const year = String(d.getFullYear());
+  return { day, month, year };
+}
+
+function StorySection({ content }: StorySectionProps) {
+  const reduceMotion = useReducedMotion();
+  const dateAnchorRef = useRef<HTMLDivElement>(null);
+  const dateInView = useInView(dateAnchorRef, {
+    amount: 0.3,
+    once: false,
+    margin: "0px 0px -8% 0px",
+  });
+  const { day, month, year } = parseEventParts(content.eventDateIso);
+  const parts = [
+    { value: day, x: "-16vw", delay: 0.04 },
+    { value: month, x: "16vw", delay: 0.16 },
+    { value: year, x: 0, delay: 0.28 },
+  ];
+  const inviteText =
+    content.quote ??
+    "Sa velikom radošću vas pozivamo da budete deo našeg najlepšeg dana i proslavite sa nama trenutak kada naše dve priče postaju jedna.";
+
+  return (
+    <section className="er-story" data-section="story" aria-label="Poziv">
+      <div className="er-story__paper">
+        <div className="er-story__inner">
+          <ErReveal kind="slideLeft">
+            <p className="er-story__invite">{inviteText}</p>
+          </ErReveal>
+
+          <div ref={dateAnchorRef} className="er-story__date-anchor">
+            <time
+              className="er-story__date"
+              dateTime={content.eventDateIso}
+              aria-label={content.eventDateLabel}
+            >
+              {parts.map((part, index) => {
+                const show = Boolean(reduceMotion || dateInView);
+                return (
+                  <motion.span
+                    key={`${part.value}-${index}`}
+                    className="er-story__date-num"
+                    initial={false}
+                    animate={
+                      show
+                        ? { opacity: 1, x: 0, y: 0 }
+                        : { opacity: 0, x: part.x, y: 8 }
+                    }
+                    transition={{
+                      duration: reduceMotion ? 0 : 0.9,
+                      delay: reduceMotion ? 0 : part.delay,
+                      ease: invitationEase,
+                    }}
+                  >
+                    {part.value}
+                  </motion.span>
+                );
+              })}
+            </time>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default StorySection;

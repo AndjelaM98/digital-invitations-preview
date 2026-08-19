@@ -1,0 +1,170 @@
+.ll-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: clamp(0.75rem, 2.5vh, 1.25rem);
+  min-height: 100dvh;
+  padding:
+    clamp(1rem, 4vh, 2rem)
+    clamp(0.75rem, 3vw, 1.5rem)
+    calc(clamp(1.25rem, 4vh, 2.25rem) + env(safe-area-inset-bottom, 0px));
+  box-sizing: border-box;
+  overflow: hidden;
+  background: var(--inv-bg, #fcfaf2);
+  transition: background-color 1s ease;
+}
+
+.ll-gate.is-revealing {
+  background: transparent;
+  pointer-events: none;
+}
+
+.ll-gate__stage {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ll-gate__motion {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  will-change: transform;
+}
+
+.ll-gate__traveler {
+  width: clamp(17rem, 72vw, 28rem);
+  translate: -50% -50%;
+}
+
+.ll-gate__figure {
+  transform-origin: 50% 15%;
+  will-change: transform, opacity;
+  background: transparent;
+}
+
+.ll-gate__monogram-wrap {
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-inline: clamp(0.75rem, 3vw, 1.5rem);
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.ll-gate__monogram {
+  display: block;
+  width: clamp(6.75rem, 40vw, 11rem);
+  aspect-ratio: 331 / 425;
+  background-color: var(--inv-red, #9a1b1b);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
+.ll-gate__video--blend {
+  mix-blend-mode: multiply;
+  background-color: var(--inv-bg, #fcfaf2);
+}
+
+.ll-gate__cta {
+  position: relative;
+  z-index: 3;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: min(100%, 13.5rem);
+  max-width: min(100%, 20rem);
+  min-height: 3.15rem;
+  padding: 0.72rem 2.4rem;
+  border: 1px solid var(--inv-red, #9a1b1b);
+  border-radius: 2px;
+  background: var(--inv-red, #9a1b1b);
+  color: #fff;
+  font-family: var(--inv-font-names, "Cormorant Garamond", Georgia, serif);
+  font-size: clamp(1rem, 4.1vw, 1.12rem);
+  font-weight: 500;
+  font-style: italic;
+  letter-spacing: 0.1em;
+  line-height: 1.2;
+  text-align: center;
+  text-transform: none;
+  cursor: pointer;
+  transition:
+    background-color 0.35s ease,
+    border-color 0.35s ease,
+    color 0.35s ease;
+}
+
+.ll-gate__cta:hover {
+  background: #801616;
+  border-color: #801616;
+}
+
+.ll-gate__cta:focus-visible {
+  outline: 2px solid var(--inv-red, #9a1b1b);
+  outline-offset: 3px;
+}
+
+.leto-ljubavi--gated .invitation-shell__canvas {
+  min-height: 100dvh;
+}
+
+.leto-ljubavi--gated .ll {
+  visibility: hidden;
+}
+
+.leto-ljubavi--invite .ll {
+  visibility: visible;
+}
+
+.ll-gate__video {
+  display: block;
+  width: 100%;
+  min-height: 8rem;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+}
+
+.ll-gate__video--alpha {
+  background: transparent;
+}
+
+@media (min-width: 720px) {
+  .ll-gate__traveler {
+    width: clamp(22rem, 50vw, 34rem);
+  }
+
+  .ll-gate__monogram-wrap {
+    padding-top: max(0.25rem, env(safe-area-inset-top, 0px));
+  }
+
+  .ll-gate__monogram {
+    width: clamp(7rem, 22vw, 11.5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ll-gate__figure {
+    transform: none !important;
+  }
+}

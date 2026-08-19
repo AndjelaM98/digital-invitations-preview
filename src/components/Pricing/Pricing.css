@@ -1,0 +1,287 @@
+.pricing {
+  padding: clamp(48px, 5vw, 72px) 24px clamp(48px, 5vw, 72px);
+  background: #f7f1e6;
+}
+
+.pricing_container {
+  width: min(1240px, 100%);
+  margin: 0 auto;
+}
+
+.pricing_heading {
+  max-width: 700px;
+  margin: 0 auto clamp(52px, 7vw, 84px);
+  text-align: center;
+}
+
+.pricing_overline {
+  margin: 0 0 16px;
+  color: #718067;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.pricing_heading h2 {
+  margin: 0;
+  color: #4e5a46;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(2.7rem, 5vw, 4.6rem);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.pricing_intro {
+  max-width: 620px;
+  margin: 24px auto 0;
+  color: #6d6c65;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.pricing_grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 22px;
+  align-items: stretch;
+}
+
+.pricing_card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  padding: 38px 28px 30px;
+  overflow: hidden;
+
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(78, 90, 70, 0.14);
+  border-radius: 20px;
+
+  box-shadow: 0 18px 50px rgba(78, 90, 70, 0.07);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.pricing_card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(78, 90, 70, 0.28);
+  box-shadow: 0 28px 65px rgba(78, 90, 70, 0.12);
+}
+
+.pricing_card--featured {
+  background: #4e5a46;
+  border-color: #4e5a46;
+  color: #ffffff;
+  transform: translateY(-14px);
+}
+
+.pricing_card--featured:hover {
+  transform: translateY(-20px);
+}
+
+.pricing_card--custom {
+  background:
+    linear-gradient(
+      155deg,
+      rgba(197, 206, 186, 0.42),
+      rgba(255, 255, 255, 0.78)
+    );
+}
+
+.pricing_badge {
+  position: absolute;
+  top: 0;
+  right: 22px;
+  padding: 9px 14px;
+
+  background: #c5ceba;
+  color: #4e5a46;
+
+  border-radius: 0 0 12px 12px;
+
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.pricing_card-header {
+  min-height: 190px;
+}
+
+.pricing_plan-name {
+  margin: 0 0 18px;
+  color: #74806d;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.pricing_card h3 {
+  margin: 0;
+  color: #4e5a46;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(2.2rem, 3vw, 3.1rem);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.pricing_subtitle {
+  margin: 18px 0 0;
+  color: #73736c;
+  font-size: 0.94rem;
+  line-height: 1.65;
+}
+
+.pricing_card--featured .pricing_plan-name,
+.pricing_card--featured .pricing_subtitle {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.pricing_card--featured h3 {
+  color: #ffffff;
+}
+
+.pricing_divider {
+  display: flex;
+  justify-content: center;
+  margin: 8px 0 22px;
+  color: #c5ceba;
+}
+
+.pricing_features {
+  display: grid;
+  gap: 14px;
+  margin: 0 0 32px;
+  padding: 0;
+  list-style: none;
+}
+
+.pricing_features li {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: 10px;
+
+  color: #555b50;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.pricing_features li span {
+  color: #829078;
+  font-weight: 700;
+}
+
+.pricing_card--featured .pricing_features li {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.pricing_card--featured .pricing_features li span {
+  color: #c5ceba;
+}
+
+.pricing_button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  min-height: 50px;
+  margin-top: auto;
+  padding: 13px 20px;
+
+  border: 1px solid #4e5a46;
+  border-radius: 999px;
+
+  background: transparent;
+  color: #4e5a46;
+
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  text-transform: uppercase;
+
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.pricing_button:hover {
+  background: #4e5a46;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.pricing_button--featured {
+  background: #c5ceba;
+  border-color: #c5ceba;
+  color: #4e5a46;
+}
+
+.pricing_button--featured:hover {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #4e5a46;
+}
+
+.pricing_note {
+  margin: 34px auto 0;
+  color: #7b7a73;
+  font-size: 0.84rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+@media (max-width: 1080px) {
+  .pricing_grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pricing_card--featured {
+    transform: none;
+  }
+
+  .pricing_card--featured:hover {
+    transform: translateY(-6px);
+  }
+}
+
+@media (max-width: 650px) {
+  .pricing {
+    padding: 48px 18px 48px;
+  }
+
+  .pricing_heading {
+    text-align: left;
+  }
+
+  .pricing_intro {
+    margin-left: 0;
+  }
+
+  .pricing_grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pricing_card {
+    padding: 34px 24px 28px;
+    border-radius: 16px;
+  }
+
+  .pricing_card-header {
+    min-height: auto;
+  }
+
+  .pricing_divider {
+    justify-content: flex-start;
+    margin: 28px 0 22px;
+  }
+}

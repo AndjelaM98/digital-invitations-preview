@@ -1,0 +1,55 @@
+/**
+ * Mobile-first stage for Canva layers.
+ * Base = phone; min-width media queries enhance tablet/desktop.
+ */
+
+.invitation-layer-stage {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  margin-inline: auto;
+  overflow: hidden;
+  /* Phone-first framing for envelope / opener scenes */
+  --inv-stage-pad-x: 1rem;
+  --inv-stage-pad-y: 1.25rem;
+  --inv-envelope-max: min(100%, 22.5rem);
+  padding: var(--inv-stage-pad-y) var(--inv-stage-pad-x);
+  box-sizing: border-box;
+}
+
+.invitation-asset-layer,
+.invitation-text-layer {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.invitation-asset-layer--interactive {
+  cursor: pointer;
+  /* Expand hit area without enlarging the seal artwork */
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (min-width: 480px) {
+  .invitation-layer-stage {
+    --inv-stage-pad-x: 1.5rem;
+    --inv-envelope-max: min(100%, 26rem);
+  }
+}
+
+@media (min-width: 768px) {
+  .invitation-layer-stage {
+    --inv-stage-pad-x: 2rem;
+    --inv-stage-pad-y: 2rem;
+    --inv-envelope-max: min(100%, 34rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .invitation-layer-stage {
+    --inv-envelope-max: min(100%, 40rem);
+  }
+}

@@ -1,0 +1,770 @@
+/* Leto ljubavi — cream doodle invitation, mobile-first */
+:root,
+[data-invitation-template="leto-ljubavi"] {
+  --inv-bg: #fcfaf2;
+  --inv-ink: #1a1a1a;
+  --inv-red: #9a1b1b;
+  --inv-font-display: "Fraunces", "Libre Baskerville", Georgia, serif;
+  --inv-font-names: "Cormorant Garamond", "Libre Baskerville", Georgia, serif;
+  --inv-font-serif: "Libre Baskerville", Georgia, serif;
+  --inv-font-greeting: "Libre Baskerville", Georgia, serif;
+  --inv-font-script: "Caveat", "Patrick Hand", cursive;
+  --inv-font-month: "Moontime", var(--inv-font-script);
+  --inv-font-sans: "Libre Franklin", "Segoe UI", sans-serif;
+  --ll-max: 30rem;
+  --ll-gap: 3.35rem;
+  --ll-pad: 1.5rem;
+}
+
+.leto-ljubavi {
+  background: var(--inv-bg);
+  color: var(--inv-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+.leto-ljubavi .invitation-shell__canvas {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  background: var(--inv-bg);
+}
+
+.ll {
+  box-sizing: border-box;
+  width: min(100%, var(--ll-max));
+  margin-inline: auto;
+  padding: 0 var(--ll-pad) 4.5rem;
+  background: var(--inv-bg);
+  text-align: center;
+}
+
+/* —— Horizontalni ticker (kao invitation marquee) —— */
+.ll-text-marquee {
+  position: relative;
+  width: 100%;
+  margin: 0.35rem 0 0.15rem;
+  overflow: hidden;
+  padding: 0.6rem 0;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 10%,
+    #000 90%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 10%,
+    #000 90%,
+    transparent 100%
+  );
+}
+
+.ll-text-marquee--static {
+  display: flex;
+  justify-content: center;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.ll-text-marquee__track {
+  display: flex;
+  width: max-content;
+  gap: 2.5rem;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+.ll-text-marquee__track.is-cruising {
+  will-change: transform;
+}
+
+.ll-text-marquee__sequence {
+  display: flex;
+  gap: 2.5rem;
+}
+
+.ll-text-marquee__item {
+  flex: 0 0 auto;
+  color: #3a3a3a;
+  font-family: var(--inv-font-sans);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.ll__block {
+  display: grid;
+  justify-items: center;
+  gap: 1.15rem;
+  width: 100%;
+  margin-top: var(--ll-gap);
+}
+
+.ll__hero {
+  margin-top: 0.5rem;
+  gap: 1.35rem;
+}
+
+.ll__hero > * {
+  display: grid;
+  justify-items: center;
+  width: 100%;
+}
+
+.ll__names {
+  margin: 0.5rem 0 0.15rem;
+  width: 100%;
+  color: var(--inv-ink);
+  font-family: var(--inv-font-names);
+  font-size: clamp(1.85rem, 7.5vw, 2.45rem);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.ll__art {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ll__art--tower {
+  display: block;
+  width: min(100%, 20.5rem);
+  max-width: 100%;
+  margin: 0.35rem auto 0.75rem;
+}
+
+.ll__finale-wrap {
+  width: 100%;
+  overflow: visible;
+  padding-top: 0.25rem;
+  display: grid;
+  justify-items: center;
+  gap: 0.85rem;
+}
+
+.ll__art--finale {
+  display: block;
+  width: min(100%, 26.5rem);
+  max-width: 100%;
+  height: auto;
+  margin: 0.65rem auto 0.75rem;
+  object-fit: contain;
+}
+
+.ll__greeting {
+  margin: 0.35rem 0 0.75rem;
+  font-family: var(--inv-font-greeting);
+  font-size: clamp(1.55rem, 6.2vw, 2rem);
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+}
+
+.ll__lead {
+  margin: 0.25rem 0 0.65rem;
+  font-family: var(--inv-font-serif);
+  font-size: 1.18rem;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.ll__body,
+.ll__serif,
+.ll__address,
+.ll__place {
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+  font-family: var(--inv-font-serif);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.72;
+}
+
+.ll__address {
+  margin-top: 0.35rem;
+  font-size: 0.92rem;
+}
+
+.ll__place {
+  margin: 0.25rem 0 0.85rem;
+}
+
+.ll__timeplace {
+  margin: 0;
+  font-family: var(--inv-font-sans);
+  font-size: 0.94rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  line-height: 1.4;
+}
+
+.ll__script {
+  margin: 0;
+  color: var(--inv-red);
+  font-family: var(--inv-font-script);
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.ll__cal-month {
+  width: 100%;
+  margin: 0 0 0.45rem;
+  color: var(--inv-red);
+  font-family: var(--inv-font-month);
+  font-size: clamp(2.15rem, 8.5vw, 2.7rem);
+  font-weight: 400;
+  line-height: 1.1;
+  text-align: right;
+  padding-right: 0.5rem;
+}
+
+.ll__cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  width: 100%;
+  row-gap: 0.65rem;
+  justify-items: center;
+}
+
+.ll__cal-day,
+.ll__cal-date {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-family: var(--inv-font-sans);
+  font-size: 0.74rem;
+  font-weight: 400;
+}
+
+.ll__cal-date {
+  font-size: 0.96rem;
+}
+
+.ll__cal-date--heart {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 2.75rem;
+  margin: 0;
+  color: #fff;
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.ll__cal-heart {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 3rem;
+  height: 2.75rem;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.ll__cal-date--heart span {
+  position: relative;
+  z-index: 1;
+  padding-top: 0.12rem;
+}
+
+.ll-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.65rem;
+  margin-top: 1rem;
+  padding: 0.5rem 1.65rem;
+  border-radius: 999px;
+  background: var(--inv-red);
+  color: #fff;
+  font-family: var(--inv-font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.ll__party {
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  column-gap: 1rem;
+  text-align: left;
+}
+
+.ll__party-prompt {
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
+  font-size: clamp(1.75rem, 7vw, 2.05rem);
+  line-height: 0.98;
+  text-align: left;
+}
+
+.ll__party-details {
+  display: grid;
+  justify-items: start;
+  gap: 0.35rem;
+  text-align: left;
+}
+
+.ll__party .ll-btn {
+  margin-top: 0.75rem;
+}
+
+.ll__heart {
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-bottom: 0.65rem;
+}
+
+.ll__box-aside {
+  margin-top: 0.75rem;
+  font-size: 1.55rem;
+}
+
+.ll__dates {
+  margin: 0.2rem 0 0.35rem;
+  color: var(--inv-red);
+  font-family: var(--inv-font-display);
+  font-size: clamp(1.85rem, 8vw, 2.35rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.ll__sign {
+  font-size: 1.85rem;
+  margin-top: 0.35rem;
+}
+
+.ll__footer {
+  margin-top: calc(var(--ll-gap) + 0.25rem);
+  padding-bottom: 1.75rem;
+  gap: 1.5rem;
+  overflow: visible;
+}
+
+/* —— Kuća: Seal Broken in Half —— */
+.ll-house {
+  margin-top: calc(var(--ll-gap) + 0.25rem);
+}
+
+.ll-house__stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(8rem, 10.5rem) minmax(0, 1fr);
+  align-items: center;
+  column-gap: 0.85rem;
+  width: calc(100% + 1.25rem);
+  max-width: calc(100% + 1.25rem);
+  margin-inline: -0.625rem;
+}
+
+.ll-house__half {
+  display: block;
+  width: auto;
+  height: clamp(9.5rem, 42vw, 12.5rem);
+  max-width: none;
+  pointer-events: none;
+}
+
+.ll-house__half--left {
+  justify-self: end;
+  object-fit: contain;
+  object-position: right center;
+}
+
+.ll-house__half--right {
+  justify-self: start;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.ll-house__center {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.35rem;
+  text-align: center;
+}
+
+.ll-house__center .ll-btn {
+  margin-top: 0.85rem;
+}
+
+/* —— Luster + gosti —— */
+.ll-dance {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+}
+
+.ll-dance__lights {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.ll-dance__floor {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.35rem;
+  width: 100%;
+  margin-top: -0.65rem;
+  padding-inline: 0.15rem;
+}
+
+.ll-dance__guests,
+.ll-dance__cheers {
+  flex: 1 1 0;
+  width: auto;
+  height: clamp(8.75rem, 38vw, 11.25rem);
+  max-width: 48%;
+  object-fit: contain;
+  object-position: bottom center;
+}
+
+.ll-dance__guests {
+  mix-blend-mode: multiply;
+}
+
+.ll-dance__cheers {
+  z-index: 1;
+}
+
+/* —— Okvir —— */
+.ll-frame-wrap {
+  margin-top: calc(var(--ll-gap) + 0.5rem);
+}
+
+.ll-frame {
+  position: relative;
+  width: min(100%, 16.5rem);
+  aspect-ratio: 604 / 865;
+  display: grid;
+  place-items: center;
+  margin-inline: auto;
+}
+
+.ll-frame__art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.ll-frame__copy {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 0.5rem;
+  width: 58%;
+  padding: 3.1rem 0.25rem 3rem;
+  text-align: center;
+}
+
+.ll-frame__copy .ll__box-aside {
+  margin-top: 0;
+}
+
+/* —— Nazdravljanje —— */
+.ll-toast {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  height: 29rem;
+  margin: 1.75rem auto 0.75rem;
+  overflow: visible;
+}
+
+.ll-toast__slot {
+  position: absolute;
+  z-index: 1;
+  width: var(--toast-w, 32%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.ll-toast__item {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Nepravilan prsten oko teksta, naglasak na dnu */
+.ll-toast__slot--tl {
+  --toast-w: 24%;
+  top: 10%;
+  left: 34%;
+}
+
+.ll-toast__slot--wine {
+  --toast-w: 32%;
+  top: 20%;
+  left: 86%;
+}
+
+.ll-toast__slot--flute {
+  --toast-w: 30%;
+  top: 34%;
+  left: 10%;
+}
+
+.ll-toast__slot--flute .ll-toast__item {
+  transform: scaleX(-1);
+}
+
+.ll-toast__slot--br {
+  --toast-w: 32%;
+  top: 58%;
+  left: 88%;
+}
+
+.ll-toast__slot--bottle {
+  --toast-w: 34%;
+  top: 72%;
+  left: 8%;
+}
+
+.ll-toast__slot--clink {
+  --toast-w: 42%;
+  top: 90%;
+  left: 54%;
+}
+
+.ll-toast__slot--clink .ll-toast__item {
+  max-height: 6.5rem;
+  margin-inline: auto;
+}
+
+.ll-toast__center {
+  position: absolute;
+  z-index: 2;
+  top: 38%;
+  left: 50%;
+  display: grid;
+  justify-items: center;
+  gap: 0.35rem;
+  width: min(52%, 11.5rem);
+  padding: 0.35rem 0.25rem;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+}
+
+/* —— Auto —— */
+.ll-car {
+  width: 100%;
+  max-width: 100%;
+  margin: 1.75rem auto 0.5rem;
+  overflow: hidden;
+}
+
+.ll-car__motion {
+  display: block;
+  width: 100%;
+  transform-origin: 50% 80%;
+}
+
+.ll-car__img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin-inline: auto;
+  height: auto;
+  transform-origin: 50% 85%;
+}
+
+/* —— RSVP —— */
+.ll-rsvp {
+  margin-top: calc(var(--ll-gap) + 0.25rem);
+  padding-bottom: 2rem;
+  text-align: center;
+}
+
+.ll-rsvp__title {
+  margin: 0 0 0.45rem;
+  font-size: clamp(1.15rem, 4.8vw, 1.35rem);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.ll-rsvp__intro {
+  margin: 0 0 1.35rem;
+  font-size: clamp(1.55rem, 6.2vw, 1.9rem);
+  line-height: 1.2;
+}
+
+.ll-rsvp__form {
+  display: grid;
+  gap: 0.95rem;
+  width: 100%;
+  max-width: 18.5rem;
+  margin-inline: auto;
+  text-align: left;
+}
+
+.ll-rsvp__line {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.ll-rsvp__line--short .ll-rsvp__input {
+  max-width: 4.5rem;
+}
+
+.ll-rsvp__label {
+  font-family: var(--inv-font-sans);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--inv-ink);
+}
+
+.ll-rsvp__input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.35rem 0 0.45rem;
+  border: none;
+  border-bottom: 1px solid rgba(26, 26, 26, 0.28);
+  border-radius: 0;
+  background: transparent;
+  color: var(--inv-ink);
+  font-family: var(--inv-font-serif);
+  font-size: 0.94rem;
+  line-height: 1.4;
+}
+
+.ll-rsvp__input:focus {
+  outline: none;
+  border-bottom-color: var(--inv-red);
+}
+
+.ll-rsvp__attend {
+  margin: 0.1rem 0 0;
+  padding: 0;
+  border: none;
+}
+
+.ll-rsvp__attend .ll-rsvp__label {
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.ll-rsvp__tick {
+  display: grid;
+  grid-template-columns: 1rem 1fr;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.4rem;
+  font-family: var(--inv-font-serif);
+  font-size: 0.92rem;
+  cursor: pointer;
+}
+
+.ll-rsvp__tick input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ll-rsvp__tick-box {
+  display: block;
+  width: 0.9rem;
+  height: 0.9rem;
+  border: 1px solid rgba(26, 26, 26, 0.35);
+  border-radius: 50%;
+  background: transparent;
+}
+
+.ll-rsvp__tick input:checked + .ll-rsvp__tick-box {
+  border-color: var(--inv-red);
+  background: var(--inv-red);
+  box-shadow: inset 0 0 0 2px var(--inv-bg);
+}
+
+.ll-rsvp__submit {
+  width: 100%;
+  margin-top: 0.5rem;
+  border: none;
+  cursor: pointer;
+}
+
+.ll-rsvp__submit:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.ll-rsvp__error {
+  margin: 0;
+  color: var(--inv-red);
+  font-family: var(--inv-font-serif);
+  font-size: 0.88rem;
+  text-align: center;
+}
+
+.ll-rsvp__thanks {
+  margin: 0.5rem 0 0;
+  font-size: 1.75rem;
+}
+
+@media (min-width: 720px) {
+  :root,
+  [data-invitation-template="leto-ljubavi"] {
+    --ll-max: 32rem;
+    --ll-pad: 1.75rem;
+    --ll-gap: 3.65rem;
+  }
+
+  .ll__art--finale {
+    width: min(100%, 28rem);
+  }
+
+  .ll-house__stage {
+    width: calc(100% + 2rem);
+    max-width: calc(100% + 2rem);
+    margin-inline: -1rem;
+    grid-template-columns: minmax(0, 1fr) minmax(8.5rem, 11rem) minmax(0, 1fr);
+    column-gap: 1rem;
+  }
+
+  .ll-house__half {
+    height: clamp(11rem, 34vw, 14rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ll-dance__lights,
+  .ll-dance__guests,
+  .ll-dance__cheers,
+  .ll-toast__slot .ll-toast__item,
+  .ll-car__motion,
+  .ll-car__img {
+    animation: none;
+  }
+}

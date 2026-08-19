@@ -1,0 +1,217 @@
+﻿.contacts {
+  position: relative;
+  padding: clamp(60px, 8vw, 80px) 24px;
+  background: var(--oatmilk);
+  overflow: hidden;
+  font-family: var(--font-main);
+}
+
+.contacts::before,
+.contacts::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.contacts::before {
+  width: 420px;
+  height: 420px;
+  top: -180px;
+  right: -120px;
+  background: rgba(191, 201, 179, 0.35);
+}
+
+.contacts::after {
+  width: 340px;
+  height: 340px;
+  bottom: -160px;
+  left: -100px;
+  background: rgba(202, 162, 144, 0.28);
+}
+
+.contacts_card {
+  position: relative;
+  z-index: 1;
+  width: min(980px, 100%);
+  margin: 0 auto;
+  padding: clamp(42px, 6vw, 72px);
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(84, 76, 70, 0.08);
+  border-radius: 24px;
+  box-shadow: 0 24px 70px rgba(77, 67, 60, 0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.contacts_card-heading {
+  max-width: 560px;
+  margin-bottom: 48px;
+  font-family: var(--font-main);
+}
+.contacts_card-heading h2 {
+  font-size: 3rem !important;
+  font-family: var(--font-main) !important;
+  font-weight: 400 !important;
+}
+
+.contacts_overline {
+  margin: 0 0 14px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #a96852;
+}
+
+.contacts_card h2 {
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 500;
+  line-height: 1.05;
+  color: #3f3935;
+}
+
+.contacts_details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.contacts_details p {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  align-items: center;
+  gap: 20px;
+  margin: 0;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(63, 57, 53, 0.1);
+}
+
+.contacts_details p:first-child {
+  border-top: 1px solid rgba(63, 57, 53, 0.1);
+}
+
+.contacts_details span {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8c817a;
+}
+
+.contacts_details a {
+  width: fit-content;
+  font-size: 1.05rem;
+  color: #3f3935;
+  text-decoration: none;
+  transition:
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.contacts_details a:hover {
+  color: #a96852;
+  transform: translateX(4px);
+}
+
+.contacts_field {
+  border: 1px solid var(--forest-floor);
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.contacts_field-row {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+.contacts_field label {
+  font-size: 0.875rem;
+  margin-bottom: 4px;
+  color: var(--forest-floor);
+  font-family: var(--font-main);
+}
+.contacts_content {
+  width: 60%;
+}
+.contacts_field input,
+.contacts_field textarea {
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  padding: 8px;
+  background-color: transparent;
+  color: var(--forest-floor);
+  font-family: var(--font-main);
+}
+
+button {
+  background-color: var(--canyon-clay);
+  color: var(--oatmilk);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition:
+    background-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.contacts_info{
+    width: 30%;
+}
+
+.contacts_info ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contacts_info li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+
+.contacts_info li div{
+    width: 24px;
+    height: 24px;
+}
+
+.contacts_info li div img{
+    width: 100%;
+}
+@media (max-width: 600px) {
+  .contacts {
+    padding: 72px 18px;
+  }
+
+  .contacts_card {
+    padding: 38px 24px;
+    border-radius: 18px;
+  }
+
+  .contacts_card-heading {
+    margin-bottom: 34px;
+  }
+
+  .contacts_details p {
+    grid-template-columns: 1fr;
+    gap: 7px;
+    padding: 16px 0;
+  }
+
+  .contacts_details a {
+    overflow-wrap: anywhere;
+  }
+}

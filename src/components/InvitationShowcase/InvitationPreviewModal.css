@@ -1,0 +1,153 @@
+.invitation-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: clamp(1rem, 4vw, 2rem);
+}
+
+.invitation-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(46, 42, 40, 0.42),
+      rgba(46, 42, 40, 0.55)
+    ),
+    radial-gradient(
+      ellipse at center,
+      rgba(194, 109, 83, 0.18),
+      transparent 65%
+    );
+}
+
+.invitation-modal__panel {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 420px);
+  padding: 1.1rem 1.1rem 1.35rem;
+  border-radius: 28px;
+  background:
+    linear-gradient(
+      165deg,
+      #fffaf3 0%,
+      color-mix(in srgb, #c4a69b 16%, #f7f1e6) 100%
+    );
+  box-shadow:
+    0 30px 80px rgba(46, 42, 40, 0.28),
+    0 0 0 1px rgba(196, 166, 155, 0.28);
+}
+
+.invitation-modal__close {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.75rem;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(247, 241, 230, 0.88);
+  color: #2e2a28;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(46, 42, 40, 0.12);
+  transition: background-color 0.25s ease, transform 0.25s ease;
+}
+
+.invitation-modal__close:hover {
+  background: #f7f1e6;
+  transform: scale(1.04);
+}
+
+.invitation-modal__media {
+  overflow: hidden;
+  border-radius: 20px;
+  aspect-ratio: 9 / 16;
+  background: #f7f1e6;
+  box-shadow:
+    0 16px 36px rgba(46, 42, 40, 0.14),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+}
+
+.invitation-modal__video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.invitation-modal__title {
+  margin: 1rem 0 0;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-align: center;
+  color: color-mix(in srgb, #2e2a28 60%, #c4a69b);
+}
+
+.invitation-modal__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-height: 2.45rem;
+  margin: 1rem auto 0;
+  padding: 0.55rem 1.35rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, #c26d53 88%, #2e2a28);
+  color: #faf6f0;
+  font-family: var(--font-body, "Montserrat", sans-serif);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.invitation-modal__cta:hover {
+  background: #c26d53;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 600px) {
+  .invitation-modal {
+    padding: 0.75rem;
+    align-items: end;
+  }
+
+  .invitation-modal__panel {
+    width: 100%;
+    max-height: min(92dvh, 100%);
+    padding: 0.9rem 0.9rem 1.15rem;
+    border-radius: 22px 22px 18px 18px;
+    overflow: auto;
+  }
+
+  .invitation-modal__media {
+    border-radius: 16px;
+    max-height: min(68dvh, 520px);
+  }
+
+  .invitation-modal__video {
+    object-fit: cover;
+  }
+}
+
+@media (min-width: 720px) {
+  .invitation-modal__panel {
+    width: min(100%, 460px);
+  }
+}

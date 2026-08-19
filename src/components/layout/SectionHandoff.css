@@ -1,0 +1,40 @@
+.section-handoff {
+  position: relative;
+  z-index: 8;
+  height: clamp(1.25rem, 3vw, 2rem);
+  margin-top: clamp(-1.5rem, -3vw, -1rem);
+  margin-bottom: clamp(-1.25rem, -2.5vw, -0.75rem);
+  pointer-events: none;
+  overflow: visible;
+}
+
+.section-handoff__veil {
+  position: absolute;
+  inset: -30% 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    color-mix(in srgb, var(--color-bg) 55%, transparent) 50%,
+    transparent 100%
+  );
+}
+
+.section-handoff__mist {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .section-handoff {
+    height: 0.85rem;
+    margin-top: -0.85rem;
+    margin-bottom: -0.55rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .section-handoff {
+    height: 0.65rem;
+    margin-top: -0.5rem;
+    margin-bottom: -0.35rem;
+  }
+}

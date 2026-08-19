@@ -1,0 +1,489 @@
+/* Template-first studio + Simple Timeline preview */
+
+.template-studio {
+  border-top: 1px solid
+    color-mix(in srgb, var(--color-warm-beige) 40%, transparent);
+  background:
+    radial-gradient(
+      ellipse 50% 40% at 12% 8%,
+      color-mix(in srgb, var(--color-sage) 12%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 45% 36% at 90% 85%,
+      color-mix(in srgb, var(--color-dusty-rose) 12%, transparent),
+      transparent 72%
+    ),
+    var(--color-bg);
+}
+
+.template-modules {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.45rem;
+}
+
+.template-modules label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.55rem 0.6rem;
+  border: 1px solid color-mix(in srgb, var(--color-warm-beige) 42%, transparent);
+  border-radius: 0.7rem;
+  background: color-mix(in srgb, #fffaf3 40%, transparent);
+  cursor: pointer;
+}
+
+.template-modules input {
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+.template-modules span {
+  display: grid;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.template-modules strong {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--studio-ink);
+}
+
+.template-modules em {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-style: normal;
+  color: color-mix(in srgb, var(--studio-ink) 52%, transparent);
+}
+
+@media (max-width: 560px) {
+  .template-modules {
+    grid-template-columns: 1fr;
+  }
+}
+
+.template-pick__card {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr;
+  gap: 1rem;
+  align-items: stretch;
+  width: 100%;
+  padding: 0.85rem;
+  border: 1px solid color-mix(in srgb, var(--color-warm-beige) 48%, transparent);
+  border-radius: 1rem;
+  background: color-mix(in srgb, #fffaf3 55%, var(--color-bg));
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 0.3s ease,
+    background-color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.template-pick__card:hover {
+  border-color: color-mix(in srgb, var(--color-dusty-rose) 45%, transparent);
+}
+
+.template-pick__card.is-selected {
+  border-color: color-mix(in srgb, var(--color-terracotta) 42%, transparent);
+  background: color-mix(in srgb, var(--color-dusty-rose) 12%, #fffaf3);
+  transform: translateY(-1px);
+}
+
+.template-pick__thumb {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-height: 6.4rem;
+  padding: 0.65rem 0.4rem;
+  border-radius: 0.7rem;
+  background:
+    linear-gradient(
+      165deg,
+      color-mix(in srgb, var(--color-warm-beige) 35%, #fff) 0%,
+      color-mix(in srgb, var(--color-sage) 18%, #f7f1e6) 100%
+    );
+  color: var(--studio-ink);
+}
+
+.template-pick__thumb-date {
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.template-pick__thumb-names {
+  font-family: var(--font-script);
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.template-pick__thumb-line {
+  display: block;
+  width: 70%;
+  height: 1px;
+  margin-top: 0.2rem;
+  background: color-mix(in srgb, var(--studio-ink) 18%, transparent);
+}
+
+.template-pick__thumb-line.is-short {
+  width: 45%;
+}
+
+.template-pick__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+  padding-block: 0.15rem;
+}
+
+.template-pick__name {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  line-height: 1.15;
+  color: var(--studio-ink);
+}
+
+.template-pick__label {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--studio-ink) 48%, var(--color-terracotta));
+}
+
+.template-pick__desc {
+  margin-top: 0.25rem;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: color-mix(in srgb, var(--studio-ink) 62%, transparent);
+}
+
+.studio-compose__label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.55rem;
+}
+
+.studio-compose__label-row .studio-compose__label {
+  margin: 0;
+}
+
+.studio-compose__mini {
+  border: 0;
+  background: transparent;
+  padding: 0.2rem 0.35rem;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--studio-ink) 55%, var(--color-terracotta));
+  cursor: pointer;
+}
+
+.studio-compose__mini:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.studio-compose__mini.is-danger {
+  color: color-mix(in srgb, var(--studio-ink) 45%, #8a4a3a);
+}
+
+.template-fill__schedule,
+.template-fill__contact {
+  display: grid;
+  gap: 0.55rem;
+  padding: 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--color-warm-beige) 40%, transparent);
+  border-radius: 0.85rem;
+  background: color-mix(in srgb, #fffaf3 40%, transparent);
+}
+
+.template-review {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.template-review li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--color-warm-beige) 38%, transparent);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+}
+
+.template-review span {
+  color: color-mix(in srgb, var(--studio-ink) 52%, transparent);
+}
+
+.template-review strong {
+  font-weight: 500;
+  text-align: right;
+  color: var(--studio-ink);
+}
+
+.template-link__url {
+  margin: 0 0 1rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  color: color-mix(in srgb, var(--studio-ink) 70%, var(--color-terracotta));
+  word-break: break-all;
+}
+
+/* —— Simple Timeline live render —— */
+
+.template-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.template-preview__device {
+  border-radius: 1.35rem;
+  border: 1px solid color-mix(in srgb, var(--color-warm-beige) 50%, transparent);
+  background: color-mix(in srgb, #2e2a28 6%, #f3eee4);
+  padding: 0.7rem;
+  box-shadow: 0 18px 40px color-mix(in srgb, #2e2a28 8%, transparent);
+}
+
+.template-preview__scroll {
+  max-height: min(68vh, 640px);
+  overflow: auto;
+  border-radius: 0.95rem;
+  background: #f8f3ea;
+  scrollbar-width: thin;
+}
+
+.template-preview__caption {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--studio-ink) 48%, transparent);
+}
+
+.template-preview__caption em {
+  font-style: normal;
+  color: var(--studio-ink);
+}
+
+.simple-timeline {
+  padding: 1.75rem 1.35rem 2.1rem;
+  color: #2a2624;
+  text-align: center;
+}
+
+.simple-timeline__date-top {
+  margin: 0 0 1.1rem;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, #2a2624 55%, transparent);
+}
+
+.simple-timeline__names {
+  margin: 0 0 1.35rem;
+  font-family: var(--font-script);
+  font-size: clamp(2.1rem, 5vw, 2.65rem);
+  font-weight: 400;
+  line-height: 1.05;
+  color: #2a2624;
+}
+
+.simple-timeline__amp {
+  font-family: var(--font-script);
+  color: color-mix(in srgb, #2a2624 55%, var(--color-terracotta));
+}
+
+.simple-timeline__greeting {
+  margin: 0 0 0.45rem;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 400;
+}
+
+.simple-timeline__intro {
+  margin: 0 auto 1.6rem;
+  max-width: 22rem;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: color-mix(in srgb, #2a2624 72%, transparent);
+}
+
+.simple-timeline__date-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+  margin: 0 0 1.5rem;
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  line-height: 1.15;
+  letter-spacing: 0.04em;
+}
+
+.simple-timeline__schedule {
+  margin: 0 0 1.6rem;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 1.05rem;
+}
+
+.simple-timeline__schedule li {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.simple-timeline__time {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.simple-timeline__event {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.simple-timeline__event strong {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+.simple-timeline__event em {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-style: normal;
+  color: color-mix(in srgb, #2a2624 58%, transparent);
+}
+
+.simple-timeline__dress {
+  margin: 0 0 1.35rem;
+}
+
+.simple-timeline__dress span {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, #2a2624 48%, transparent);
+}
+
+.simple-timeline__dress p {
+  margin: 0;
+  font-family: var(--font-script);
+  font-size: 1.35rem;
+  line-height: 1.2;
+}
+
+.simple-timeline__closing {
+  margin: 0 0 0.85rem;
+  font-family: var(--font-script);
+  font-size: 1.85rem;
+  line-height: 1;
+}
+
+.simple-timeline__rsvp-slot {
+  margin: 0 0 1.5rem;
+}
+
+.simple-timeline__rsvp {
+  margin: 0 auto;
+  max-width: 18rem;
+  font-family: var(--font-body);
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: color-mix(in srgb, #2a2624 68%, transparent);
+}
+
+.simple-timeline__rsvp-pending {
+  display: grid;
+  gap: 0.55rem;
+  justify-items: center;
+}
+
+.simple-timeline__rsvp-hint {
+  margin: 0;
+  max-width: 16rem;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: color-mix(in srgb, #2a2624 48%, transparent);
+}
+
+.studio-compose__hint {
+  margin: 0.55rem 0 0;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: color-mix(in srgb, var(--studio-ink) 52%, transparent);
+}
+
+.simple-timeline__contacts {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.simple-timeline__contacts li {
+  display: grid;
+  gap: 0.1rem;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+
+.simple-timeline__contacts strong {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+
+.simple-timeline__contacts em {
+  font-style: normal;
+  font-size: 0.72rem;
+  color: color-mix(in srgb, #2a2624 52%, transparent);
+}
+
+@media (max-width: 900px) {
+  .template-pick__card {
+    grid-template-columns: 4.75rem 1fr;
+  }
+}

@@ -1,0 +1,22 @@
+.invitation-slide-in {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-sizing: border-box;
+  /* Keep layout box on-screen for intersection observers */
+  overflow: visible;
+}
+
+.invitation-slide-in__motion {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-sizing: border-box;
+  will-change: transform, opacity;
+}

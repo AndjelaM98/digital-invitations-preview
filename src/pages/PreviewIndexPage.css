@@ -1,0 +1,135 @@
+.preview-index {
+  min-height: 100vh;
+  padding: clamp(2.5rem, 7vw, 5.5rem) 0 clamp(4rem, 8vw, 6.5rem);
+  background:
+    radial-gradient(
+      ellipse 70% 48% at 88% 8%,
+      color-mix(in srgb, #c4a69b 22%, transparent),
+      transparent 62%
+    ),
+    radial-gradient(
+      ellipse 50% 40% at 6% 82%,
+      color-mix(in srgb, #a3ae9a 16%, transparent),
+      transparent 58%
+    ),
+    #f7f1e6;
+  color: #4e5a46;
+}
+
+.preview-index__shell {
+  width: min(100% - 2.4rem, 720px);
+  margin-inline: auto;
+}
+
+.preview-index__eyebrow {
+  margin: 0 0 0.7rem;
+  font-family: var(--font-body, "Montserrat", sans-serif);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, #4e5a46 42%, #c4a69b);
+}
+
+.preview-index__title {
+  margin: 0 0 0.85rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(2.4rem, 7vw, 3.75rem);
+  font-weight: 500;
+  line-height: 1.05;
+  color: #353230;
+}
+
+.preview-index__lede {
+  margin: 0 0 clamp(2rem, 5vw, 2.75rem);
+  max-width: 28rem;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: color-mix(in srgb, #4e5a46 78%, transparent);
+}
+
+.preview-index__list {
+  display: grid;
+  gap: 0.9rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.preview-index__card {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1rem 1.15rem;
+  align-items: center;
+  padding: 1.15rem 1.2rem;
+  text-decoration: none;
+  color: inherit;
+  background: color-mix(in srgb, #fff 62%, #f7f1e6);
+  border: 1px solid color-mix(in srgb, #caa290 28%, transparent);
+  border-radius: 1.15rem;
+  box-shadow: 0 10px 28px color-mix(in srgb, #caa290 10%, transparent);
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.preview-index__card:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, #c4a69b 48%, transparent);
+  box-shadow: 0 16px 36px color-mix(in srgb, #caa290 16%, transparent);
+}
+
+.preview-index__number {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.35rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: color-mix(in srgb, #4e5a46 45%, #c4a69b);
+}
+
+.preview-index__copy {
+  min-width: 0;
+}
+
+.preview-index__name {
+  margin: 0 0 0.28rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(1.35rem, 3.5vw, 1.7rem);
+  font-weight: 500;
+  line-height: 1.15;
+  color: #353230;
+}
+
+.preview-index__note {
+  margin: 0 0 0.35rem;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: color-mix(in srgb, #4e5a46 72%, transparent);
+}
+
+.preview-index__meta {
+  margin: 0;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, #4e5a46 48%, transparent);
+}
+
+.preview-index__cta {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #c26d53;
+}
+
+@media (max-width: 560px) {
+  .preview-index__card {
+    grid-template-columns: auto 1fr;
+  }
+
+  .preview-index__cta {
+    grid-column: 2;
+  }
+}

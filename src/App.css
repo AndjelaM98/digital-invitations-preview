@@ -1,0 +1,13 @@
+#root {
+  min-height: 100vh;
+  --oatmilk: #f7f1e6;
+  --main-text: #353230;
+  --canyon-clay: #C26D53;
+  --forest-floor: #4e5a46;
+  --rosy-taupe: #CAA290;
+  --ash-gray: #BFC9B3;
+}
+:root {
+  --font-cursive: "Allura", cursive;
+  --font-main: "Montserrat", sans-serif;
+}
