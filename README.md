@@ -31,7 +31,8 @@ http://localhost:5173/digital-invitations-preview/
 
 Push na `main` pokreće GitHub Actions workflow `.github/workflows/deploy-pages.yml`.
 
-U GitHub repo podešavanjima:
+Jednom, u GitHubu (vlasnik repoa):
 
-1. **Settings → Pages**
+1. Otvori [Settings → Pages](https://github.com/AndjelaM98/digital-invitations-preview/settings/pages)
 2. Source: **GitHub Actions**
+3. Ponovo pokreni workflow u [Actions](https://github.com/AndjelaM98/digital-invitations-preview/actions)
