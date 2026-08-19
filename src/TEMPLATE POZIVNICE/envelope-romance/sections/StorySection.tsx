@@ -1,5 +1,5 @@
 import { motion, useInView, useReducedMotion } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { invitationEase } from "../../shared/motion";
 import type { InvitationContent } from "../../shared/types";
@@ -30,8 +30,8 @@ function StorySection({ content, inviteReady = true }: StorySectionProps) {
     once: true,
     margin: "0px 0px -8% 0px",
   });
+  const [dateRevealed, setDateRevealed] = useState(false);
   const { day, month, year } = parseEventParts(content.eventDateIso);
-  const canRevealDate = Boolean(reduceMotion || (inviteReady && dateInView));
   const parts = [
     { value: day, x: "-16vw", delay: 0.04 },
     { value: month, x: "16vw", delay: 0.16 },
@@ -40,6 +40,13 @@ function StorySection({ content, inviteReady = true }: StorySectionProps) {
   const inviteText =
     content.quote ??
     "Sa velikom radošću vas pozivamo da budete deo našeg najlepšeg dana i proslavite sa nama trenutak kada naše dve priče postaju jedna.";
+
+  useEffect(() => {
+    if (dateRevealed) return;
+    if (reduceMotion || (inviteReady && dateInView)) {
+      setDateRevealed(true);
+    }
+  }, [dateInView, dateRevealed, inviteReady, reduceMotion]);
 
   return (
     <section className="er-story" data-section="story" aria-label="Poziv">
@@ -55,28 +62,25 @@ function StorySection({ content, inviteReady = true }: StorySectionProps) {
               dateTime={content.eventDateIso}
               aria-label={content.eventDateLabel}
             >
-              {parts.map((part, index) => {
-                const show = canRevealDate;
-                return (
-                  <motion.span
-                    key={`${part.value}-${index}`}
-                    className="er-story__date-num"
-                    initial={false}
-                    animate={
-                      show
-                        ? { opacity: 1, x: 0, y: 0 }
-                        : { opacity: 0, x: part.x, y: 8 }
-                    }
-                    transition={{
-                      duration: reduceMotion ? 0 : 0.9,
-                      delay: reduceMotion ? 0 : part.delay,
-                      ease: invitationEase,
-                    }}
-                  >
-                    {part.value}
-                  </motion.span>
-                );
-              })}
+              {parts.map((part, index) => (
+                <motion.span
+                  key={`${part.value}-${index}`}
+                  className="er-story__date-num"
+                  initial={false}
+                  animate={
+                    dateRevealed
+                      ? { opacity: 1, x: 0, y: 0 }
+                      : { opacity: 0, x: part.x, y: 8 }
+                  }
+                  transition={{
+                    duration: reduceMotion ? 0 : 0.9,
+                    delay: reduceMotion || !dateRevealed ? 0 : part.delay,
+                    ease: invitationEase,
+                  }}
+                >
+                  {part.value}
+                </motion.span>
+              ))}
             </time>
           </div>
         </div>

@@ -1,11 +1,13 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import InvitationShell from "../shared/InvitationShell";
 import type { InvitationContent } from "../shared/types";
 import { PEARL_ELEGANCE_ID, pearlEleganceConfig } from "./config";
 import { pearlEleganceDemoContent, type PearlEleganceContent } from "./content";
 import InviteOpener from "./InviteOpener";
-import InviteAmbientMusic from "../envelope-romance/InviteAmbientMusic";
+import InviteAmbientMusic, {
+  type InviteAmbientMusicHandle,
+} from "../envelope-romance/InviteAmbientMusic";
 import { PearlRevealContext } from "./reveal";
 import {
   CalendarSection,
@@ -50,10 +52,15 @@ function PearlElegance({ content }: PearlEleganceProps) {
       ? content
       : pearlEleganceDemoContent;
   const [showOpener, setShowOpener] = useState(true);
+  const musicRef = useRef<InviteAmbientMusicHandle>(null);
 
   const dismissOpener = useCallback(() => {
     window.scrollTo(0, 0);
     setShowOpener(false);
+  }, []);
+
+  const unlockMusic = useCallback(() => {
+    musicRef.current?.unlockFromGesture();
   }, []);
 
   useEffect(() => {
@@ -72,7 +79,7 @@ function PearlElegance({ content }: PearlEleganceProps) {
           className="pearl-elegance"
           aria-hidden={showOpener}
         >
-          <InviteAmbientMusic music={data.music} unlocked={!showOpener} />
+          <InviteAmbientMusic ref={musicRef} music={data.music} />
           <HeroSection content={data} />
           <InviteSection content={data} />
           <CalendarSection content={data} />
@@ -91,7 +98,11 @@ function PearlElegance({ content }: PearlEleganceProps) {
       ) : null}
 
       {showOpener ? (
-        <InviteOpener content={data} onFinished={dismissOpener} />
+        <InviteOpener
+          content={data}
+          onFinished={dismissOpener}
+          onMusicUnlock={unlockMusic}
+        />
       ) : null}
     </>
   );

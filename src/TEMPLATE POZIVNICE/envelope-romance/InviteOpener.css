@@ -8,6 +8,7 @@
   background-color: var(--inv-cream, #faf6f0);
   opacity: 1;
   transition: opacity 2.2s ease-in-out;
+  cursor: pointer;
   --inv-font-display: "Playfair Display", Georgia, "Times New Roman", serif;
   --inv-font-script: "Great Vibes", "Segoe Script", cursive;
 }
@@ -24,6 +25,13 @@
   height: auto;
   max-height: 100%;
   overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.er-opener.is-ready .er-opener__stage {
+  opacity: 1;
+  visibility: visible;
 }
 
 .er-opener__stack {

@@ -47,7 +47,7 @@
 }
 
 [data-invitation-template="pearl-elegance"] .er-ambient__btn {
-  z-index: 28;
+  z-index: 45;
   border-color: color-mix(in srgb, var(--pe-ink) 20%, transparent);
   background: color-mix(in srgb, var(--pe-ivory) 90%, transparent);
   color: var(--pe-ink);

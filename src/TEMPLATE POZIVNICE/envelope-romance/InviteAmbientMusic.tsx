@@ -1,69 +1,180 @@
-import { useEffect, useRef, useState } from "react";
+import {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
 
 import type { InvitationMusic } from "../shared/types";
 import "./InviteAmbientMusic.css";
 
 type InviteAmbientMusicProps = {
   music?: InvitationMusic;
-  /** When true, start playback (pass from gate open click). */
+  /** Legacy prop — prefer unlockFromGesture on first user tap. */
   unlocked?: boolean;
 };
 
+export type InviteAmbientMusicHandle = {
+  unlockFromGesture: () => void;
+};
+
+function isMobileAudioContext() {
+  if (typeof window === "undefined") return false;
+  return (
+    window.matchMedia("(max-width: 767px)").matches ||
+    /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+  );
+}
+
+function buildYoutubeEmbed(
+  youtubeId: string,
+  opts: { startSeconds: number; autoplay: boolean; mute: boolean },
+) {
+  const startParam = opts.startSeconds > 0 ? `&start=${opts.startSeconds}` : "";
+  return `https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=${opts.autoplay ? 1 : 0}&mute=${opts.mute ? 1 : 0}&controls=0&disablekb=1&fs=0&iv_load_policy=3&loop=1&playlist=${youtubeId}&playsinline=1&rel=0&modestbranding=1&enablejsapi=1${startParam}`;
+}
+
 /**
  * Background music for the invite.
- * Starts when `unlocked` becomes true (gate click / user gesture).
+ * Must start inside the opener click handler on mobile (unlockFromGesture).
  */
-function InviteAmbientMusic({
-  music,
-  unlocked: unlockedProp = false,
-}: InviteAmbientMusicProps) {
+const InviteAmbientMusic = forwardRef<
+  InviteAmbientMusicHandle,
+  InviteAmbientMusicProps
+>(function InviteAmbientMusic({ music, unlocked: unlockedProp = false }, ref) {
   const youtubeId = music?.youtubeId;
   const audioSrc = music?.src;
   const title = music?.title ?? "Naša pesma";
   const startSeconds = Math.max(0, music?.startSeconds ?? 0);
 
   const audioRef = useRef<HTMLAudioElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const mobileRef = useRef(isMobileAudioContext());
+  const unlockedRef = useRef(false);
+
   const [unlocked, setUnlocked] = useState(unlockedProp);
-  const [playing, setPlaying] = useState(true);
+  const [playing, setPlaying] = useState(false);
+  const [audible, setAudible] = useState(false);
+
+  const startAudio = useCallback(() => {
+    const el = audioRef.current;
+    if (!el || !audioSrc) return false;
+
+    el.setAttribute("playsinline", "");
+    el.setAttribute("webkit-playsinline", "");
+    if (startSeconds > 0 && el.currentTime < startSeconds) {
+      el.currentTime = startSeconds;
+    }
+
+    const attempt = el.play();
+    if (attempt) {
+      void attempt.catch(() => setPlaying(false));
+    }
+    return true;
+  }, [audioSrc, startSeconds]);
+
+  const startYoutube = useCallback(
+    (mute: boolean) => {
+      if (!youtubeId || !iframeRef.current) return false;
+      iframeRef.current.src = buildYoutubeEmbed(youtubeId, {
+        startSeconds,
+        autoplay: true,
+        mute,
+      });
+      return true;
+    },
+    [startSeconds, youtubeId],
+  );
+
+  const unlockFromGesture = useCallback(() => {
+    if (unlockedRef.current) return;
+    unlockedRef.current = true;
+    setUnlocked(true);
+    setPlaying(true);
+
+    const mobile = mobileRef.current;
+
+    if (audioSrc) {
+      setAudible(true);
+      startAudio();
+      return;
+    }
+
+    if (youtubeId) {
+      const startMuted = mobile;
+      setAudible(!startMuted);
+      startYoutube(startMuted);
+    }
+  }, [audioSrc, startAudio, startYoutube, youtubeId]);
+
+  useImperativeHandle(ref, () => ({ unlockFromGesture }), [unlockFromGesture]);
 
   useEffect(() => {
     if (unlockedProp) {
-      setUnlocked(true);
-      setPlaying(true);
+      unlockFromGesture();
     }
-  }, [unlockedProp]);
+  }, [unlockFromGesture, unlockedProp]);
 
   useEffect(() => {
     const el = audioRef.current;
-    if (!el || !audioSrc || !unlocked) return;
-    if (playing) {
-      if (startSeconds > 0 && el.currentTime < startSeconds) {
-        el.currentTime = startSeconds;
-      }
-      void el.play().catch(() => setPlaying(false));
-    } else {
-      el.pause();
-    }
-  }, [unlocked, playing, audioSrc, startSeconds]);
+    if (!el || !audioSrc || !unlocked || !playing) return;
+    startAudio();
+  }, [audioSrc, playing, startAudio, unlocked]);
 
   if (!youtubeId && !audioSrc) return null;
 
-  const toggle = () => {
-    setUnlocked(true);
-    setPlaying((prev) => !prev);
+  const stopPlayback = () => {
+    setPlaying(false);
+    audioRef.current?.pause();
+    if (iframeRef.current) {
+      iframeRef.current.src = "";
+    }
   };
 
-  const startParam = startSeconds > 0 ? `&start=${startSeconds}` : "";
-  const embedSrc = youtubeId
-    ? `https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&mute=0&controls=0&disablekb=1&fs=0&iv_load_policy=3&loop=1&playlist=${youtubeId}&playsinline=1&rel=0&modestbranding=1${startParam}`
-    : null;
+  const resumePlayback = () => {
+    setPlaying(true);
+    if (audioSrc) {
+      startAudio();
+      return;
+    }
+    if (youtubeId) {
+      startYoutube(!audible && mobileRef.current);
+    }
+  };
+
+  const unmuteYoutube = () => {
+    setAudible(true);
+    startYoutube(false);
+  };
+
+  const toggle = () => {
+    if (!unlocked) {
+      unlockFromGesture();
+      return;
+    }
+
+    if (playing && youtubeId && !audible && mobileRef.current) {
+      unmuteYoutube();
+      return;
+    }
+
+    if (playing) {
+      stopPlayback();
+    } else {
+      resumePlayback();
+    }
+  };
+
+  const isAudible = playing && unlocked && (audible || Boolean(audioSrc));
 
   return (
     <div className="er-ambient">
-      {unlocked && playing && embedSrc ? (
+      {youtubeId ? (
         <iframe
+          ref={iframeRef}
           className="er-ambient__frame"
-          src={embedSrc}
           title={title}
           allow="autoplay; encrypted-media"
           tabIndex={-1}
@@ -71,20 +182,18 @@ function InviteAmbientMusic({
       ) : null}
 
       {audioSrc ? (
-        <audio ref={audioRef} src={audioSrc} loop preload="metadata" />
+        <audio ref={audioRef} src={audioSrc} loop preload="auto" playsInline />
       ) : null}
 
       <button
         type="button"
-        className={`er-ambient__btn${playing && unlocked ? " is-on" : ""}`}
+        className={`er-ambient__btn${isAudible ? " is-on" : ""}`}
         onClick={toggle}
-        aria-pressed={playing && unlocked}
-        aria-label={
-          playing && unlocked ? "Isključi muziku" : "Uključi muziku"
-        }
+        aria-pressed={isAudible}
+        aria-label={isAudible ? "Isključi muziku" : "Uključi muziku"}
       >
         <span className="er-ambient__icon" aria-hidden="true">
-          {playing && unlocked ? (
+          {isAudible ? (
             <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
               <path d="M3 10v4h4l5 5V5L7 10H3zm13.5 2a4.5 4.5 0 0 0-2.3-3.9v7.8A4.5 4.5 0 0 0 16.5 12z" />
             </svg>
@@ -97,6 +206,6 @@ function InviteAmbientMusic({
       </button>
     </div>
   );
-}
+});
 
 export default InviteAmbientMusic;

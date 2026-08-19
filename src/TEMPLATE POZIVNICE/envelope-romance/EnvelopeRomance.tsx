@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import InvitationShell from "../shared/InvitationShell";
 import type { InvitationContent } from "../shared/types";
@@ -7,7 +7,9 @@ import {
   envelopeRomanceConfig,
 } from "./config";
 import { envelopeRomanceDemoContent } from "./content";
-import InviteAmbientMusic from "./InviteAmbientMusic";
+import InviteAmbientMusic, {
+  type InviteAmbientMusicHandle,
+} from "./InviteAmbientMusic";
 import InviteOpener from "./InviteOpener";
 import {
   ClosingSection,
@@ -39,8 +41,13 @@ function EnvelopeRomance({
   content = envelopeRomanceDemoContent,
 }: EnvelopeRomanceProps) {
   const [showOpener, setShowOpener] = useState(true);
+  const musicRef = useRef<InviteAmbientMusicHandle>(null);
 
   const dismissOpener = useCallback(() => setShowOpener(false), []);
+
+  const unlockMusic = useCallback(() => {
+    musicRef.current?.unlockFromGesture();
+  }, []);
 
   useEffect(() => {
     const prev = document.body.style.overflow;
@@ -57,7 +64,7 @@ function EnvelopeRomance({
         className="envelope-romance envelope-romance--invite"
         aria-hidden={showOpener}
       >
-        <InviteAmbientMusic music={content.music} unlocked={!showOpener} />
+        <InviteAmbientMusic ref={musicRef} music={content.music} />
         <HeroSection content={content} />
         <StorySection content={content} inviteReady={!showOpener} />
         <ParentsSection content={content} />
@@ -71,7 +78,11 @@ function EnvelopeRomance({
       </InvitationShell>
 
       {showOpener ? (
-        <InviteOpener content={content} onFinished={dismissOpener} />
+        <InviteOpener
+          content={content}
+          onFinished={dismissOpener}
+          onMusicUnlock={unlockMusic}
+        />
       ) : null}
     </>
   );

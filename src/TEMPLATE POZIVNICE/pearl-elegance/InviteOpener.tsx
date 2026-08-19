@@ -8,6 +8,7 @@ import "./InviteOpener.css";
 type InviteOpenerProps = {
   content: PearlEleganceContent;
   onFinished: () => void;
+  onMusicUnlock?: () => void;
 };
 
 type Phase = "hold" | "video" | "letters" | "zoom";
@@ -42,7 +43,7 @@ function parseEventParts(iso: string) {
   };
 }
 
-function InviteOpener({ content, onFinished }: InviteOpenerProps) {
+function InviteOpener({ content, onFinished, onMusicUnlock }: InviteOpenerProps) {
   const reduceMotion = useReducedMotion();
   const videoRef = useRef<HTMLVideoElement>(null);
   const timers = useRef<number[]>([]);
@@ -102,6 +103,7 @@ function InviteOpener({ content, onFinished }: InviteOpenerProps) {
 
   const playVideo = useCallback(() => {
     if (!holding.current) return;
+    onMusicUnlock?.();
     holding.current = false;
 
     const video = videoRef.current;
@@ -129,7 +131,7 @@ function InviteOpener({ content, onFinished }: InviteOpenerProps) {
     };
     video.addEventListener("canplay", onReady);
     video.load();
-  }, []);
+  }, [onMusicUnlock]);
 
   useEffect(() => {
     if (!reduceMotion) return;
