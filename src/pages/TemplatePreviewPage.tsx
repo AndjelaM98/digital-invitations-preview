@@ -27,9 +27,6 @@ function TemplatePreviewPage() {
 
   return (
     <div className="template-preview">
-      <Link className="template-preview__back" to="/">
-        Sve pozivnice
-      </Link>
       <Component />
     </div>
   );
