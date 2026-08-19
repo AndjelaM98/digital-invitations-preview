@@ -13,6 +13,8 @@ Početna stranica prikazuje listu pozivnica. Svaka kartica otvara punu template 
 - [Envelope Romance](https://AndjelaM98.github.io/digital-invitations-preview/preview/envelope-romance)
 - [Leto ljubavi](https://AndjelaM98.github.io/digital-invitations-preview/preview/leto-ljubavi)
 - [Pearl Elegance](https://AndjelaM98.github.io/digital-invitations-preview/preview/pearl-elegance)
+- [Soft Floral](https://AndjelaM98.github.io/digital-invitations-preview/preview/soft-floral)
+- [Blush Wedding](https://AndjelaM98.github.io/digital-invitations-preview/preview/rose-blush)
 
 Marketing sajt ostaje na [/sajt](https://AndjelaM98.github.io/digital-invitations-preview/sajt).
 

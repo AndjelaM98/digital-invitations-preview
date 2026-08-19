@@ -9,6 +9,7 @@ type ScrollRevealProps = {
   variants?: Variants;
   amount?: number;
   delay?: number;
+  once?: boolean;
   as?: "div" | "section" | "header" | "footer" | "article";
 };
 
@@ -19,6 +20,7 @@ function ScrollReveal({
   variants = revealUp,
   amount = 0.35,
   delay = 0,
+  once = false,
   as = "div",
 }: ScrollRevealProps) {
   const reduceMotion = useReducedMotion();
@@ -36,7 +38,7 @@ function ScrollReveal({
       initial="hidden"
       whileInView="visible"
       exit="exit"
-      viewport={{ amount, once: false, margin: "0px 0px -8% 0px" }}
+      viewport={{ amount, once, margin: "0px 0px -8% 0px" }}
       transition={{ ...invitationTransition, delay }}
     >
       {children}

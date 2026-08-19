@@ -10,6 +10,10 @@ const templateNotes: Record<string, string> = {
     "Letnji ritam, portal ulaz i svetle sekcije za baštansku proslavu.",
   "pearl-elegance":
     "Biseri, tipografija i miran, luksuzan tok inspirisan stationeryjem.",
+  "soft-floral":
+    "Nežni cvetni motivi, peoni gate i pastelna pozadina za romantičan ulaz.",
+  "rose-blush":
+    "Blush tonovi, leptiri i line-art ilustracije sa datum intro animacijom.",
 };
 
 function PreviewIndexPage() {
