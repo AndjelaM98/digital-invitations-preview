@@ -59,7 +59,7 @@ function EnvelopeRomance({
       >
         <InviteAmbientMusic music={content.music} unlocked={!showOpener} />
         <HeroSection content={content} />
-        <StorySection content={content} />
+        <StorySection content={content} inviteReady={!showOpener} />
         <ParentsSection content={content} />
         <CountdownSection content={content} />
         <VenueSection content={content} />

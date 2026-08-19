@@ -116,6 +116,19 @@
   filter: blur(2px);
   opacity: 0.72;
   pointer-events: none;
+  will-change: transform;
+}
+
+@media (max-width: 767px) {
+  .sf-gate__panel--flowers {
+    transform: translateZ(0);
+  }
+
+  .sf-gate__image {
+    width: 112vw;
+    max-width: none;
+    object-position: 18% center;
+  }
 }
 
 .sf-gate__copy {

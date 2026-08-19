@@ -139,26 +139,78 @@
   white-space: nowrap;
 }
 
-@media (max-width: 48rem) {
+@media (max-width: 767px) {
   .qb-intro__grid {
-    grid-template-columns: auto minmax(5.5rem, 32vw) auto;
-    column-gap: 0.45rem;
-    padding-inline: 0.7rem;
-    row-gap: 0.06em;
+    grid-template-columns: auto minmax(6.75rem, 44vw) auto;
+    column-gap: 0.6rem;
+    row-gap: 0.1em;
+    max-width: 96vw;
+    padding-inline: 0.55rem;
   }
 
   .qb-intro__num {
-    font-size: min(18dvh, 26vw);
-    line-height: 0.88;
+    font-size: min(24dvh, 36vw);
+    line-height: 0.84;
   }
 
   .qb-intro__initials {
-    font-size: min(9dvh, 14vw);
+    font-size: min(14dvh, 22vw);
   }
 
   .qb-intro__script {
-    font-size: clamp(0.92rem, 3.4vw, 1.35rem);
-    padding-inline: 0.2rem;
+    font-size: clamp(1.45rem, 5vw, 2.05rem);
+    padding-inline: 0.25rem;
+    gap: 0.12em;
+  }
+
+  .qb-gallery {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: 0;
+    gap: 1.35rem;
+    padding-inline: 0.35rem;
+  }
+
+  .qb-polaroids {
+    position: relative;
+    width: min(100%, 22rem);
+    height: 26.5rem;
+    margin: 0 auto;
+  }
+
+  .qb-polaroid {
+    width: 10.75rem;
+    padding: 0.5rem 0.5rem 1.35rem;
+  }
+
+  .qb-polaroid--1 {
+    top: 0;
+    left: 0.15rem;
+    z-index: 3;
+  }
+
+  .qb-polaroid--2 {
+    top: 5.75rem;
+    left: auto;
+    right: 0;
+    z-index: 2;
+  }
+
+  .qb-polaroid--3 {
+    top: 11.5rem;
+    left: 0.35rem;
+    z-index: 1;
+  }
+
+  .qb-card--quote {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: min(100%, 22rem);
+    margin-top: 0.25rem;
+    z-index: 1;
   }
 }
 

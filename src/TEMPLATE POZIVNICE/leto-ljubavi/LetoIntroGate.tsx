@@ -43,15 +43,24 @@ function LetoIntroGate({ onOpen, onFinished }: LetoIntroGateProps) {
   const y = useMotionValue(DANCE_Y);
 
   useEffect(() => {
-    const probe = document.createElement("video");
-    probe.preload = "auto";
-    probe.muted = true;
-    probe.src = letoAssets.introDanceWebm;
-
     const useMp4 = () => {
       setVideoSrc(letoAssets.introDance);
       setUseBlend(true);
     };
+
+    const prefersMp4 =
+      window.matchMedia("(max-width: 719px)").matches ||
+      /iPhone|iPad|iPod|Android|Mobile/i.test(navigator.userAgent);
+
+    if (prefersMp4) {
+      useMp4();
+      return;
+    }
+
+    const probe = document.createElement("video");
+    probe.preload = "auto";
+    probe.muted = true;
+    probe.src = letoAssets.introDanceWebm;
 
     probe.onloadeddata = () => {
       setVideoSrc(letoAssets.introDanceWebm);
@@ -169,18 +178,22 @@ function LetoIntroGate({ onOpen, onFinished }: LetoIntroGateProps) {
                   : { duration: 0.4, ease: slowEase }
               }
             >
-              <video
-                ref={videoRef}
-                className={`ll-gate__video${useBlend ? " ll-gate__video--blend" : " ll-gate__video--alpha"}`}
-                src={videoSrc}
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="auto"
-                onError={handleVideoError}
-                aria-hidden="true"
-              />
+              <div
+                className={`ll-gate__video-shell${useBlend ? " ll-gate__video-shell--blend" : " ll-gate__video-shell--alpha"}`}
+              >
+                <video
+                  ref={videoRef}
+                  className="ll-gate__video"
+                  src={videoSrc}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="auto"
+                  onError={handleVideoError}
+                  aria-hidden="true"
+                />
+              </div>
             </motion.div>
           </div>
         </motion.div>

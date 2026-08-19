@@ -288,6 +288,7 @@
   position: relative;
   width: 100%;
   min-height: clamp(14rem, 48vw, 22rem);
+  overflow: hidden;
 }
 
 .er-story__date {
@@ -296,7 +297,7 @@
   gap: 0.02em;
   margin: 0;
   width: 100%;
-  overflow: visible;
+  overflow: hidden;
   font-family: var(--inv-font-display);
   font-weight: 600;
   line-height: 0.9;
@@ -308,6 +309,9 @@
   display: block;
   font-size: clamp(4.4rem, 22vw, 7.5rem);
   will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  font-variant-numeric: tabular-nums;
 }
 
 .er-story__date-num:last-child {

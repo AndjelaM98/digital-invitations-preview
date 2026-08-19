@@ -2,6 +2,8 @@ import { motion, useReducedMotion } from "framer-motion";
 import { useEffect } from "react";
 
 import { invitationEase } from "../../shared/motion";
+import { useIsDesktopInvitation } from "../../shared/useIsDesktopInvitation";
+import { invitationBreakpoints } from "../../shared/viewport";
 import peoniesImage from "../assets/peonies.png";
 
 const EXIT_DURATION = 2.75;
@@ -10,7 +12,15 @@ const BREATHE_DURATION = 5.2;
 const gateExitEase: [number, number, number, number] = [0.33, 0.86, 0.25, 1];
 const flowerWidths = ["50%", "64%", "43%", "50%"];
 const creamWidths = ["50%", "36%", "57%", "50%"];
+const mobileImageShift = ["0%", "-8%", "5%", "0%"];
 const breatheTimes = [0, 0.38, 0.72, 1];
+const breatheTransition = {
+  duration: BREATHE_DURATION,
+  times: breatheTimes,
+  ease: invitationEase,
+  repeat: Infinity,
+  repeatType: "loop" as const,
+};
 
 type FlowerGateOpenerProps = {
   partnerOne: string;
@@ -30,6 +40,9 @@ function FlowerGateOpener({
   leaving,
 }: FlowerGateOpenerProps) {
   const reduceMotion = useReducedMotion();
+  const isDesktop = useIsDesktopInvitation(invitationBreakpoints.md);
+  const usePanelBreathe = isDesktop && !reduceMotion;
+  const useImageBreathe = !isDesktop && !reduceMotion;
   const exitDuration = reduceMotion ? 0.2 : EXIT_DURATION;
   const fadeDuration = reduceMotion ? 0.15 : FADE_DURATION;
 
@@ -62,28 +75,38 @@ function FlowerGateOpener({
         animate={
           leaving
             ? { x: "-100%" }
-            : reduceMotion
-              ? { x: "0%", width: "50%" }
-              : { x: "0%", width: flowerWidths }
+            : usePanelBreathe
+              ? { x: "0%", width: flowerWidths }
+              : { x: "0%", width: "50%" }
         }
         transition={
           leaving
             ? { duration: exitDuration, ease: gateExitEase }
-            : {
-                duration: BREATHE_DURATION,
-                times: breatheTimes,
-                ease: invitationEase,
-              }
+            : usePanelBreathe
+              ? {
+                  duration: BREATHE_DURATION,
+                  times: breatheTimes,
+                  ease: invitationEase,
+                }
+              : { duration: 0 }
         }
         onAnimationComplete={() => {
           if (leaving) onComplete();
         }}
       >
-        <img
+        <motion.img
           className="sf-gate__image"
           src={peoniesImage}
           alt=""
           draggable={false}
+          animate={
+            useImageBreathe && !leaving
+              ? { x: mobileImageShift }
+              : { x: "0%" }
+          }
+          transition={
+            useImageBreathe && !leaving ? breatheTransition : { duration: 0 }
+          }
         />
       </motion.div>
 
@@ -94,18 +117,20 @@ function FlowerGateOpener({
         animate={
           leaving
             ? { x: "100%" }
-            : reduceMotion
-              ? { x: "0%", width: "50%" }
-              : { x: "0%", width: creamWidths }
+            : usePanelBreathe
+              ? { x: "0%", width: creamWidths }
+              : { x: "0%", width: "50%" }
         }
         transition={
           leaving
             ? { duration: exitDuration, ease: gateExitEase }
-            : {
-                duration: BREATHE_DURATION,
-                times: breatheTimes,
-                ease: invitationEase,
-              }
+            : usePanelBreathe
+              ? {
+                  duration: BREATHE_DURATION,
+                  times: breatheTimes,
+                  ease: invitationEase,
+                }
+              : { duration: 0 }
         }
       />
 

@@ -79,9 +79,20 @@
   mask-position: center;
 }
 
-.ll-gate__video--blend {
+.ll-gate__video-shell {
+  display: block;
+  width: 100%;
+  line-height: 0;
+  background-color: var(--inv-bg, #fcfaf2);
+}
+
+.ll-gate__video-shell--blend {
   mix-blend-mode: multiply;
   background-color: var(--inv-bg, #fcfaf2);
+}
+
+.ll-gate__video-shell--alpha {
+  background: transparent;
 }
 
 .ll-gate__cta {
@@ -141,12 +152,40 @@
   width: 100%;
   min-height: 8rem;
   height: auto;
+  background-color: var(--inv-bg, #fcfaf2);
+  object-fit: contain;
+  object-position: center bottom;
   pointer-events: none;
   user-select: none;
+  vertical-align: top;
 }
 
-.ll-gate__video--alpha {
-  background: transparent;
+@media (max-width: 719px) {
+  .ll-gate__stage {
+    background-color: var(--inv-bg, #fcfaf2);
+  }
+
+  .ll-gate__figure {
+    background-color: var(--inv-bg, #fcfaf2);
+  }
+
+  .ll-gate__video-shell {
+    overflow: hidden;
+    background-color: var(--inv-bg, #fcfaf2);
+  }
+
+  .ll-gate__video-shell--blend {
+    mix-blend-mode: multiply;
+  }
+
+  .ll-gate__video {
+    width: 103%;
+    max-width: none;
+    margin-inline: -1.5%;
+    background-color: var(--inv-bg, #fcfaf2);
+    object-fit: cover;
+    object-position: center 62%;
+  }
 }
 
 @media (min-width: 720px) {

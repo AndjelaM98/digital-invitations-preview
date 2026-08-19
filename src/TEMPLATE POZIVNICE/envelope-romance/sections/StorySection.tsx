@@ -7,6 +7,8 @@ import ErReveal from "../ErReveal";
 
 type StorySectionProps = {
   content: InvitationContent;
+  /** Wait until the opener dismisses before revealing the date stack. */
+  inviteReady?: boolean;
 };
 
 function parseEventParts(iso: string) {
@@ -20,15 +22,16 @@ function parseEventParts(iso: string) {
   return { day, month, year };
 }
 
-function StorySection({ content }: StorySectionProps) {
+function StorySection({ content, inviteReady = true }: StorySectionProps) {
   const reduceMotion = useReducedMotion();
   const dateAnchorRef = useRef<HTMLDivElement>(null);
   const dateInView = useInView(dateAnchorRef, {
     amount: 0.3,
-    once: false,
+    once: true,
     margin: "0px 0px -8% 0px",
   });
   const { day, month, year } = parseEventParts(content.eventDateIso);
+  const canRevealDate = Boolean(reduceMotion || (inviteReady && dateInView));
   const parts = [
     { value: day, x: "-16vw", delay: 0.04 },
     { value: month, x: "16vw", delay: 0.16 },
@@ -53,7 +56,7 @@ function StorySection({ content }: StorySectionProps) {
               aria-label={content.eventDateLabel}
             >
               {parts.map((part, index) => {
-                const show = Boolean(reduceMotion || dateInView);
+                const show = canRevealDate;
                 return (
                   <motion.span
                     key={`${part.value}-${index}`}
