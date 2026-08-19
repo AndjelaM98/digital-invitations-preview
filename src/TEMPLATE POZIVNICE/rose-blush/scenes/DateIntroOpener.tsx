@@ -89,8 +89,8 @@ function DateIntroOpener({
       }}
       aria-label="Otvorite pozivnicu"
     >
-      <div className="qb-intro__grid">
-        <div className="qb-intro__date" aria-hidden="true">
+      <div className={`qb-intro__grid${isDesktop ? "" : " qb-intro__grid--mobile"}`}>
+        <div className={`qb-intro__date${isDesktop ? "" : " qb-intro__date--mobile"}`} aria-hidden="true">
           {stack.map((part, index) => (
             <motion.span
               key={`${part}-${index}`}
@@ -112,7 +112,7 @@ function DateIntroOpener({
           ))}
         </div>
 
-        <p className="qb-intro__script">
+        <p className={`qb-intro__script${isDesktop ? "" : " qb-intro__script--mobile"}`}>
           {INVITE_LINES.map((line, lineIndex) => {
             const lineDelay =
               writingStart +
@@ -143,7 +143,7 @@ function DateIntroOpener({
           })}
         </p>
 
-        <p className="qb-intro__initials" aria-hidden="true">
+        <p className={`qb-intro__initials${isDesktop ? "" : " qb-intro__initials--mobile"}`} aria-hidden="true">
           {initials.map((token, index) => (
             <motion.span
               key={`${token}-${index}`}

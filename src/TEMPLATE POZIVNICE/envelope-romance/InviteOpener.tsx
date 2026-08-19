@@ -74,7 +74,11 @@ function InviteOpener({ content, onFinished, onMusicUnlock }: InviteOpenerProps)
 
   const tryRevealMedia = useCallback(() => {
     if (sealLoaded.current && videoLoaded.current) {
-      setMediaReady(true);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setMediaReady(true);
+        });
+      });
     }
   }, []);
 
@@ -146,17 +150,32 @@ function InviteOpener({ content, onFinished, onMusicUnlock }: InviteOpenerProps)
       tryRevealMedia();
     };
 
+    const finalizeReady = () => {
+      if ("requestVideoFrameCallback" in video) {
+        const videoWithFrame = video as HTMLVideoElement & {
+          requestVideoFrameCallback?: (callback: () => void) => number;
+        };
+        videoWithFrame.requestVideoFrameCallback?.(() => {
+          markVideoReady();
+        });
+        return;
+      }
+      markVideoReady();
+    };
+
     const freeze = () => {
       if (!holding.current) return;
       video.pause();
       if (video.currentTime !== 0) video.currentTime = 0;
-      markVideoReady();
+      finalizeReady();
     };
+
+    video.load();
 
     if (video.readyState >= 2) {
       freeze();
     } else {
-      video.addEventListener("loadeddata", freeze);
+      video.addEventListener("loadeddata", freeze, { once: true });
     }
 
     return () => video.removeEventListener("loadeddata", freeze);

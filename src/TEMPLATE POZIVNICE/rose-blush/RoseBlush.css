@@ -1225,3 +1225,181 @@
     min-height: 8.2rem;
   }
 }
+
+@media (max-width: 767px) {
+  .qb-intro__grid--mobile {
+    width: min(100%, 22rem) !important;
+    max-width: calc(100vw - 2rem) !important;
+    gap: 1.25rem !important;
+    row-gap: 1.25rem !important;
+    padding: 1.15rem 0.85rem !important;
+  }
+
+  .qb-intro__date--mobile {
+    gap: 0.5rem !important;
+  }
+
+  .qb-intro__script--mobile {
+    max-width: 16rem !important;
+    gap: 0.08em !important;
+  }
+
+  .qb-intro__initials--mobile {
+    margin-top: 0.1rem !important;
+  }
+
+  .qb-gallery--mobile {
+    width: min(100%, 19.5rem) !important;
+    padding-inline: 0 !important;
+  }
+
+  .qb-polaroids--mobile {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 1rem !important;
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+  }
+
+  .qb-polaroids--mobile .qb-polaroid,
+  .qb-polaroids--mobile .qb-polaroid--1,
+  .qb-polaroids--mobile .qb-polaroid--2,
+  .qb-polaroids--mobile .qb-polaroid--3 {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    width: 12.75rem !important;
+    margin: 0 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    z-index: auto !important;
+  }
+
+  .qb-polaroids--mobile .qb-polaroid--1 { rotate: -4deg !important; }
+  .qb-polaroids--mobile .qb-polaroid--2 { rotate: 3deg !important; }
+  .qb-polaroids--mobile .qb-polaroid--3 { rotate: -2deg !important; }
+
+  .qb-polaroids--mobile .qb-polaroid img {
+    display: block !important;
+    width: 100% !important;
+    min-height: 16rem !important;
+    object-fit: cover !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .qb-intro {
+    place-items: center;
+    padding: 0.75rem;
+  }
+
+  .qb-intro__grid {
+    width: min(100%, 22.5rem) !important;
+    max-width: calc(100vw - 1.5rem) !important;
+    min-height: auto !important;
+    height: auto !important;
+    padding: 1rem 0.75rem !important;
+    gap: 1.1rem !important;
+    row-gap: 1.1rem !important;
+    justify-content: center !important;
+  }
+
+  .qb-intro__date {
+    gap: 0.35rem !important;
+  }
+
+  .qb-intro__num,
+  .qb-intro__num--0,
+  .qb-intro__num--1,
+  .qb-intro__num--2 {
+    font-size: clamp(4.5rem, 23vw, 6.25rem) !important;
+    line-height: 0.84 !important;
+  }
+
+  .qb-intro__script {
+    width: 100% !important;
+    max-width: 15rem !important;
+    padding-inline: 0 !important;
+    font-size: clamp(1.85rem, 8vw, 2.45rem) !important;
+    line-height: 1.04 !important;
+    gap: 0.04em !important;
+  }
+
+  .qb-intro__initials {
+    width: auto !important;
+    font-size: clamp(3.8rem, 20vw, 5.25rem) !important;
+    line-height: 0.82 !important;
+  }
+
+  .qb-section--gallery {
+    overflow: visible !important;
+  }
+
+  .qb-gallery {
+    width: min(100%, 19.5rem) !important;
+    min-height: 0 !important;
+    margin-inline: auto !important;
+    gap: 1rem !important;
+    padding-inline: 0 !important;
+    overflow: visible !important;
+  }
+
+  .qb-polaroids {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    gap: 0.9rem !important;
+    overflow: visible !important;
+  }
+
+  .qb-polaroid,
+  .qb-polaroid--1,
+  .qb-polaroid--2,
+  .qb-polaroid--3 {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    width: 12.75rem !important;
+    margin: 0 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    z-index: auto !important;
+  }
+
+  .qb-polaroid--1 { rotate: -4deg !important; }
+  .qb-polaroid--2 { rotate: 3deg !important; }
+  .qb-polaroid--3 { rotate: -2deg !important; }
+
+  .qb-polaroid img {
+    display: block !important;
+    width: 100% !important;
+    min-height: 16rem !important;
+    object-fit: cover !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .qb-card--quote {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    width: 100% !important;
+    margin-top: 0.15rem !important;
+    z-index: 1 !important;
+  }
+
+  .qb-card--quote-mobile {
+    display: block !important;
+    position: relative !important;
+    inset: auto !important;
+    transform: none !important;
+    order: 2 !important;
+  }
+}

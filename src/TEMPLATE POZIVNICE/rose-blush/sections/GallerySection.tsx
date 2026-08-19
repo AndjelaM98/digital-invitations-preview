@@ -15,6 +15,15 @@ type GallerySectionProps = {
 function GallerySection({ content }: GallerySectionProps) {
   const isDesktop = useIsDesktopInvitation(invitationBreakpoints.md);
   const reduceMotion = useReducedMotion();
+  const quoteClassName = isDesktop
+    ? "qb-card qb-card--quote"
+    : "qb-card qb-card--quote qb-card--quote-mobile";
+  const galleryClassName = isDesktop
+    ? "qb-gallery"
+    : "qb-gallery qb-gallery--mobile";
+  const polaroidsClassName = isDesktop
+    ? "qb-polaroids"
+    : "qb-polaroids qb-polaroids--mobile";
 
   return (
     <ScrollReveal
@@ -24,8 +33,8 @@ function GallerySection({ content }: GallerySectionProps) {
       amount={isDesktop ? 0.08 : 0.18}
       once
     >
-      <div className="qb-gallery" data-section="gallery">
-        <div className="qb-polaroids">
+      <div className={galleryClassName} data-section="gallery">
+        <div className={polaroidsClassName}>
           {blushPhotos.map((src, index) => (
             <motion.figure
               key={src}
@@ -59,7 +68,7 @@ function GallerySection({ content }: GallerySectionProps) {
           ))}
         </div>
 
-        <article className="qb-card qb-card--quote">
+        <article className={quoteClassName}>
           <CardOrnaments set="quote" />
           <span className="qb-quote-mark" aria-hidden="true">
             “
