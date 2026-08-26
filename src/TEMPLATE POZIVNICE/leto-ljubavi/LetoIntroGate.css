@@ -169,7 +169,9 @@
 
   .ll-gate__anchor {
     top: 50%;
-    width: min(86vw, 22rem);
+    left: 50%;
+    width: min(92vw, 24rem);
+    transform: translate(-50%, -50%);
   }
 
   .ll-gate__figure {
@@ -186,12 +188,14 @@
   }
 
   .ll-gate__video {
-    width: 100%;
+    width: 118%;
     max-width: none;
-    margin-inline: 0;
+    /* Couple sits right in the clip — bias frame so they land in the middle */
+    margin-left: -14%;
+    margin-right: 0;
     background-color: var(--inv-bg, #fcfaf2);
-    object-fit: contain;
-    object-position: center center;
+    object-fit: cover;
+    object-position: 62% 40%;
   }
 }
 
