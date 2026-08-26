@@ -1,5 +1,5 @@
 import ScrollReveal from "../../shared/ScrollReveal";
-import { revealUp } from "../../shared/motion";
+import { revealFade } from "../../shared/motion";
 import type { InvitationContent } from "../../shared/types";
 import { blushArt } from "../art";
 import CardOrnaments from "../components/CardOrnaments";
@@ -14,7 +14,7 @@ function DressCodeSection({ content }: DressCodeSectionProps) {
   if (!dressCode) return null;
 
   return (
-    <ScrollReveal as="section" className="qb-section" variants={revealUp} amount={0.08} once>
+    <ScrollReveal as="section" className="qb-section" variants={revealFade} amount={0.08} once>
       <article className="qb-card qb-card--detail" data-section="dress-code">
         <CardOrnaments set="dress" />
         <LineArt src={blushArt.couple} className="qb-detail-icon qb-detail-icon--couple" />

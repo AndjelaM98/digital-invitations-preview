@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useState, type FormEvent } from "react";
 
 import ScrollReveal from "../../shared/ScrollReveal";
-import { invitationEase, revealScale } from "../../shared/motion";
+import { invitationEase, revealFade } from "../../shared/motion";
 import type { InvitationContent } from "../../shared/types";
 import { blushArt } from "../art";
 import LineArt from "../components/LineArt";
@@ -38,7 +38,7 @@ function RsvpSection({ content }: RsvpSectionProps) {
   };
 
   return (
-    <ScrollReveal as="section" className="qb-section" variants={revealScale} amount={0.08} once>
+    <ScrollReveal as="section" className="qb-section" variants={revealFade} amount={0.08} once>
       <article className="qb-card qb-card--detail" data-section="rsvp">
         <h3 className="qb-script qb-script--card">{rsvp.title}</h3>
         <LineArt src={blushArt.envelopeTulips} className="qb-detail-icon qb-detail-icon--lg" />

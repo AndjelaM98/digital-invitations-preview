@@ -6,10 +6,10 @@ import { useIsDesktopInvitation } from "../../shared/useIsDesktopInvitation";
 import { invitationBreakpoints } from "../../shared/viewport";
 
 const EMPTY_HOLD = 1.2;
-const DATE_STEP = 0.48;
-const INITIAL_STEP = 0.32;
+const DATE_STEP = 0.62;
+const INITIAL_STEP = 0.38;
 const LETTER_STEP = 0.055;
-const LINE_PAUSE = 0.28;
+const LINE_PAUSE = 0.36;
 const HOLD_AFTER = 1.35;
 const EXIT_DURATION = 1.1;
 

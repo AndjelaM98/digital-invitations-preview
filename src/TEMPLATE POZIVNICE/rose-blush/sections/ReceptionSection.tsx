@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 
 import ScrollReveal from "../../shared/ScrollReveal";
-import { invitationEase, revealScale } from "../../shared/motion";
+import { invitationEase, revealFade } from "../../shared/motion";
 import type { InvitationContent } from "../../shared/types";
 import { blushArt } from "../art";
 import CardOrnaments from "../components/CardOrnaments";
@@ -16,7 +16,7 @@ function ReceptionSection({ content }: ReceptionSectionProps) {
   if (!venue) return null;
 
   return (
-    <ScrollReveal as="section" className="qb-section" variants={revealScale} amount={0.08} once>
+    <ScrollReveal as="section" className="qb-section" variants={revealFade} amount={0.08} once>
       <h2 className="qb-gold-title">Detalji</h2>
       <article className="qb-card qb-card--detail" data-section="reception">
         <CardOrnaments set="reception" />
