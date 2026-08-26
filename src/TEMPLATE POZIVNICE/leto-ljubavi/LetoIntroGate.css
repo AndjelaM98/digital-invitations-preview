@@ -31,21 +31,23 @@
   pointer-events: none;
 }
 
-.ll-gate__motion {
+/* True viewport center — no Framer vw / translate hacks */
+.ll-gate__anchor {
   position: absolute;
-  top: 0;
-  left: 0;
+  left: 50%;
+  top: 52%;
   z-index: 2;
+  width: clamp(17rem, 72vw, 28rem);
+  transform: translate(-50%, -50%);
+}
+
+.ll-gate__sway {
+  width: 100%;
   will-change: transform;
 }
 
-.ll-gate__traveler {
-  width: clamp(17rem, 72vw, 28rem);
-  translate: -50% -50%;
-}
-
 .ll-gate__figure {
-  transform-origin: 50% 15%;
+  width: 100%;
   will-change: transform, opacity;
   background: transparent;
 }
@@ -154,7 +156,7 @@
   height: auto;
   background-color: var(--inv-bg, #fcfaf2);
   object-fit: contain;
-  object-position: center bottom;
+  object-position: center 38%;
   pointer-events: none;
   user-select: none;
   vertical-align: top;
@@ -163,6 +165,11 @@
 @media (max-width: 719px) {
   .ll-gate__stage {
     background-color: var(--inv-bg, #fcfaf2);
+  }
+
+  .ll-gate__anchor {
+    top: 50%;
+    width: min(86vw, 22rem);
   }
 
   .ll-gate__figure {
@@ -179,18 +186,19 @@
   }
 
   .ll-gate__video {
-    width: 103%;
+    width: 100%;
     max-width: none;
-    margin-inline: -1.5%;
+    margin-inline: 0;
     background-color: var(--inv-bg, #fcfaf2);
-    object-fit: cover;
-    object-position: center 62%;
+    object-fit: contain;
+    object-position: center center;
   }
 }
 
 @media (min-width: 720px) {
-  .ll-gate__traveler {
+  .ll-gate__anchor {
     width: clamp(22rem, 50vw, 34rem);
+    top: 54%;
   }
 
   .ll-gate__monogram-wrap {

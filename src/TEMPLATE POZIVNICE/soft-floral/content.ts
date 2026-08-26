@@ -34,7 +34,7 @@ export const softFloralDemoContent: InvitationContent = {
   timeline: [
     { id: "ceremony", time: "15:00", title: "ceremonija", icon: "rings" },
     { id: "drinks", time: "16:00", title: "kokteli", icon: "champagne" },
-    { id: "photos", time: "17:00", title: "fotografije", icon: "camera" },
+    { id: "photos", time: "17:00", title: "fotografisanje", icon: "camera" },
     { id: "dinner", time: "19:00", title: "večera", icon: "dinner" },
     { id: "party", time: "22:00", title: "zabava", icon: "party" },
     { id: "end", time: "00:00", title: "kraj", icon: "moon" },
@@ -61,3 +61,8 @@ export const softFloralDetails: SoftFloralDetails = {
   publicTransport:
     "Autobuske linije 15, 31 i 78 staju na stanici Kalemegdan, pet minuta hoda od sale.",
 };
+
+export const softFloralMoments = {
+  quote: "Gde cveta ljubav, rastu i snovi.",
+  frames: [{ id: "m1", position: "50% 35%" }],
+} as const;

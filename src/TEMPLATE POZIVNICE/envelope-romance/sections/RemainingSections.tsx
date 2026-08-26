@@ -22,21 +22,20 @@ export function ParentsSection({ content }: SectionProps) {
       aria-label="Porodice"
     >
       <div className="er-split">
-        <ErReveal kind="fade" className="er-split__media">
+        <ErReveal kind="curtain" className="er-split__media" drift={false}>
           <img src={envelopeRomanceParentsImage} alt="" loading="lazy" />
         </ErReveal>
         <div className="er-split__copy">
-          <ErReveal kind="slideLeft">
-            <p className="er-eyebrow er-eyebrow--light">porodice</p>
+          <ErReveal kind="float">
             <h2 className="er-title er-title--light">Zajedno</h2>
           </ErReveal>
           {content.parentsNote ? (
-            <ErReveal kind="rise" delay={0.08}>
+            <ErReveal kind="float" delay={0.12}>
               <p className="er-body er-body--light">{content.parentsNote}</p>
             </ErReveal>
           ) : null}
           {content.monogram ? (
-            <ErReveal kind="bounce" delay={0.12}>
+            <ErReveal kind="bounce" delay={0.22}>
               <p className="er-monogram">{content.monogram}</p>
             </ErReveal>
           ) : null}
@@ -65,12 +64,12 @@ export function CountdownSection({ content }: SectionProps) {
       aria-label="Odbrojavanje"
     >
       <div className="er-section__inner">
-        <ErReveal kind="slideRight">
+        <ErReveal kind="float">
           <p className="er-eyebrow">odbrojavanje</p>
           <h2 className="er-title">Do našeg dana</h2>
           <p className="er-date-line">{content.eventDateLabel}</p>
         </ErReveal>
-        <ErReveal kind="bounce" delay={0.1}>
+        <ErReveal kind="float" delay={0.18}>
           {done ? (
             <p className="er-script">Dan je stigao</p>
           ) : (
@@ -97,25 +96,27 @@ export function VenueSection({ content }: SectionProps) {
 
   return (
     <section
-      className="er-section er-section--cream er-section--tight-y"
+      className="er-section er-section--cream er-section--venue"
       data-section="venue"
       aria-label="Lokacija"
     >
-      <div className="er-section__inner">
-        <ErReveal kind="slideLeft">
+      <div className="er-section__inner er-venue__intro">
+        <ErReveal kind="float">
           <p className="er-eyebrow">{venue.title}</p>
           <h2 className="er-title">Gde se vidimo</h2>
         </ErReveal>
+      </div>
 
-        <ErReveal kind="rise" className="er-photo-frame er-photo-frame--wide" delay={0.06}>
-          <img
-            src={envelopeRomanceVenueImage}
-            alt={venue.placeName}
-            loading="lazy"
-          />
-        </ErReveal>
+      <ErReveal kind="curtain" className="er-venue__bleed" delay={0.08} drift={false}>
+        <img
+          src={envelopeRomanceVenueImage}
+          alt={venue.placeName}
+          loading="lazy"
+        />
+      </ErReveal>
 
-        <ErReveal kind="rise" delay={0.1}>
+      <div className="er-section__inner er-venue__meta">
+        <ErReveal kind="float" delay={0.1}>
           <p className="er-venue__time">{venue.timeLabel}</p>
           <p className="er-venue__place">{venue.placeName}</p>
           {venue.address ? <p className="er-body">{venue.address}</p> : null}
@@ -146,14 +147,14 @@ export function DressCodeSection({ content }: SectionProps) {
       aria-label="Dress code"
     >
       <div className="er-section__inner er-dresscode__inner">
-        <ErReveal kind="fade">
+        <ErReveal kind="float">
           <p className="er-eyebrow er-eyebrow--light">{dress.title}</p>
         </ErReveal>
-        <ErReveal kind="bounce" delay={0.08}>
+        <ErReveal kind="float" delay={0.14}>
           <p className="er-dresscode__script">{dress.label}</p>
         </ErReveal>
         {dress.note ? (
-          <ErReveal kind="bounce" delay={0.16}>
+          <ErReveal kind="float" delay={0.28}>
             <p className="er-dresscode__script er-dresscode__script--accent">
               {dress.note}
             </p>
@@ -174,7 +175,7 @@ export function TimelineSection({ content }: SectionProps) {
       aria-label="Raspored dana"
     >
       <div className="er-section__inner">
-        <ErReveal kind="slideRight">
+        <ErReveal kind="float">
           <p className="er-eyebrow">raspored</p>
           <h2 className="er-title">Tok dana</h2>
         </ErReveal>
@@ -183,17 +184,14 @@ export function TimelineSection({ content }: SectionProps) {
           {items.map((item, index) => (
             <li key={item.id} className="er-timeline__item">
               <ErReveal
-                kind={index % 2 === 0 ? "slideLeft" : "slideRight"}
-                delay={index * 0.05}
+                kind="float"
+                delay={0.08 + index * 0.1}
                 className="er-timeline__slide"
               >
                 <span className="er-timeline__time">{item.time}</span>
-                <div className="er-timeline__copy">
-                  <h3 className="er-timeline__title">{item.title}</h3>
-                  {item.description ? (
-                    <p className="er-timeline__desc">{item.description}</p>
-                  ) : null}
-                </div>
+                <p className="er-timeline__line">
+                  <span className="er-timeline__title">{item.title}</span>
+                </p>
               </ErReveal>
             </li>
           ))}
@@ -214,7 +212,7 @@ export function HotelsSection({ content }: SectionProps) {
       aria-label="Smeštaj"
     >
       <div className="er-section__inner">
-        <ErReveal kind="slideLeft">
+        <ErReveal kind="float">
           <p className="er-eyebrow er-eyebrow--light">smeštaj</p>
           <h2 className="er-title er-title--light">{hotels.title}</h2>
         </ErReveal>
@@ -223,7 +221,7 @@ export function HotelsSection({ content }: SectionProps) {
             const href = hotel.mapUrl ?? hotel.detailUrl;
             return (
               <li key={hotel.id} className="er-hotels__item">
-                <ErReveal kind={index % 2 === 0 ? "slideLeft" : "slideRight"} delay={0.06 + index * 0.05}>
+                <ErReveal kind="float" delay={0.06 + index * 0.05}>
                   <h3 className="er-hotels__name">{hotel.name}</h3>
                   {href ? (
                     <a
@@ -282,12 +280,12 @@ export function RsvpSection({ content }: SectionProps) {
       aria-label="RSVP"
     >
       <div className="er-section__inner">
-        <ErReveal kind="slideRight">
+        <ErReveal kind="float">
           <p className="er-eyebrow er-eyebrow--light">rsvp</p>
           <h2 className="er-title er-title--light">{rsvp.title}</h2>
           <p className="er-body er-body--light">{rsvp.deadlineLabel}</p>
         </ErReveal>
-        <ErReveal kind="rise" delay={0.08} className="er-rsvp-wrap">
+        <ErReveal kind="float" delay={0.08} className="er-rsvp-wrap">
           {status === "ok" ? (
             <p className="er-script er-script--light">Hvala, primili smo potvrdu</p>
           ) : (
@@ -349,7 +347,7 @@ export function ClosingSection({ content }: SectionProps) {
       aria-label="Završetak"
     >
       {closingImage ? (
-        <ErReveal kind="fade" className="er-closing__photo">
+        <ErReveal kind="zoomSoft" className="er-closing__photo" drift={false}>
           <img src={closingImage.src} alt={closingImage.alt} loading="lazy" />
           <div className="er-closing__veil" aria-hidden="true" />
         </ErReveal>

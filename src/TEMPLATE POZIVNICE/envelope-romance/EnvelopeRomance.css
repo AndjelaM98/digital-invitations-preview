@@ -88,6 +88,7 @@
   align-items: center;
   text-align: center;
   box-sizing: border-box;
+  will-change: transform, opacity;
 }
 
 .er-reveal__idle {
@@ -95,6 +96,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  will-change: transform;
 }
 
 /* ——— Hero ——— */
@@ -721,6 +723,41 @@
   color: color-mix(in srgb, var(--inv-wine) 75%, var(--inv-ink));
 }
 
+.er-section--venue {
+  padding-block: clamp(1.5rem, 4vh, 2.75rem) clamp(2rem, 5vh, 3.25rem);
+  padding-inline: 0;
+  gap: 0;
+  display: grid;
+}
+
+.er-venue__intro {
+  padding-inline: var(--er-gutter, 1.25rem);
+  margin-bottom: clamp(1.1rem, 3vw, 1.6rem);
+}
+
+.er-venue__bleed {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 0;
+  line-height: 0;
+}
+
+.er-venue__bleed img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: center 42%;
+}
+
+.er-venue__meta {
+  padding-inline: var(--er-gutter, 1.25rem);
+  margin-top: clamp(1.15rem, 3.2vw, 1.75rem);
+}
+
 /* ——— Dress code ——— */
 
 .er-dresscode {
@@ -761,55 +798,59 @@
   border-bottom: 1px solid color-mix(in srgb, var(--inv-ink) 10%, transparent);
 }
 
-/* Mobile-first: stacked + centered */
-.er-timeline__slide {
+/* Time + title — description in one flowing line */
+.er-timeline__slide,
+.er-timeline__slide .er-reveal__idle {
   width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.35rem;
-  text-align: center;
-}
-
-.er-timeline__copy {
-  width: 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.45rem 0.75rem;
   text-align: center;
 }
 
 .er-timeline__time {
+  flex: 0 0 auto;
   font-family: var(--inv-font-display);
   font-size: 1.05rem;
   font-weight: 500;
   color: var(--inv-wine);
 }
 
-.er-timeline__title {
+.er-timeline__line {
   margin: 0;
-  font-family: var(--inv-font-display);
-  font-size: 1.2rem;
-  font-weight: 500;
-  text-align: center;
+  flex: 1 1 12rem;
+  max-width: 22rem;
+  font-size: 1.05rem;
+  line-height: 1.45;
+  text-wrap: balance;
 }
 
-.er-timeline__desc {
-  margin: 0.25rem 0 0;
-  font-size: 0.86rem;
-  line-height: 1.45;
-  color: var(--inv-ink-soft);
-  text-align: center;
+.er-timeline__title {
+  font-family: var(--inv-font-display);
+  font-size: 1.15rem;
+  font-weight: 500;
 }
 
 @media (min-width: 768px) {
-  .er-timeline__slide {
-    display: grid;
-    grid-template-columns: 4.25rem 1fr;
-    align-items: start;
+  .er-timeline__slide,
+  .er-timeline__slide .er-reveal__idle {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
     text-align: left;
+    gap: 1.15rem;
   }
 
-  .er-timeline__copy,
-  .er-timeline__title,
-  .er-timeline__desc {
+  .er-timeline__time {
+    flex: 0 0 4.25rem;
+    text-align: right;
+  }
+
+  .er-timeline__line {
+    flex: 1 1 auto;
+    max-width: none;
     text-align: left;
   }
 }
@@ -1134,16 +1175,16 @@
     font-size: clamp(2.3rem, 3vw, 3rem);
   }
 
+  .er-venue__bleed img {
+    aspect-ratio: 2 / 1;
+  }
+
   .er-timeline__time {
     font-size: 1.35rem;
   }
 
   .er-timeline__title {
     font-size: 1.55rem;
-  }
-
-  .er-timeline__desc {
-    font-size: 1rem;
   }
 
   .er-hotels__name {

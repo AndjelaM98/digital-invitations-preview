@@ -476,15 +476,19 @@ function TripDateToast({
 
       </div>
 
-      <motion.div className="ll-toast__center" {...center}>
+      <div className="ll-toast__center">
 
-        <doodles.Heart className="ll__heart" />
+        <motion.div className="ll-toast__center-inner" {...center}>
 
-        <p className="ll__dates">{dates}</p>
+          <doodles.Heart className="ll__heart" />
 
-        <p className="ll__address">{place}</p>
+          <p className="ll__dates">{dates}</p>
 
-      </motion.div>
+          <p className="ll__address">{place}</p>
+
+        </motion.div>
+
+      </div>
 
     </section>
 

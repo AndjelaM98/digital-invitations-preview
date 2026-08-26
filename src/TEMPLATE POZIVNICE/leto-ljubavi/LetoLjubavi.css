@@ -323,7 +323,7 @@
 .ll-dance__cheers,
 .ll-dance__lights,
 .ll-frame__art,
-.ll-toast__center,
+.ll-toast__center-inner,
 .ll-toast__item {
   will-change: transform;
 }
@@ -581,14 +581,22 @@
   z-index: 2;
   top: 38%;
   left: 50%;
-  display: grid;
-  justify-items: center;
-  gap: 0.35rem;
   width: min(52%, 11.5rem);
   padding: 0.35rem 0.25rem;
   transform: translate(-50%, -50%);
   text-align: center;
   pointer-events: none;
+}
+
+.ll-toast__center-inner {
+  display: grid;
+  justify-items: center;
+  gap: 0.35rem;
+  width: 100%;
+}
+
+.ll-toast__center .ll__address {
+  text-wrap: balance;
 }
 
 /* —— Auto —— */

@@ -33,9 +33,9 @@ function StorySection({ content, inviteReady = true }: StorySectionProps) {
   const [dateRevealed, setDateRevealed] = useState(false);
   const { day, month, year } = parseEventParts(content.eventDateIso);
   const parts = [
-    { value: day, x: "-16vw", delay: 0.04 },
-    { value: month, x: "16vw", delay: 0.16 },
-    { value: year, x: 0, delay: 0.28 },
+    { value: day, delay: 0.1 },
+    { value: month, delay: 0.28 },
+    { value: year, delay: 0.46 },
   ];
   const inviteText =
     content.quote ??
@@ -52,7 +52,7 @@ function StorySection({ content, inviteReady = true }: StorySectionProps) {
     <section className="er-story" data-section="story" aria-label="Poziv">
       <div className="er-story__paper">
         <div className="er-story__inner">
-          <ErReveal kind="slideLeft">
+          <ErReveal kind="float">
             <p className="er-story__invite">{inviteText}</p>
           </ErReveal>
 
@@ -69,11 +69,11 @@ function StorySection({ content, inviteReady = true }: StorySectionProps) {
                   initial={false}
                   animate={
                     dateRevealed
-                      ? { opacity: 1, x: 0, y: 0 }
-                      : { opacity: 0, x: part.x, y: 8 }
+                      ? { opacity: 1, y: 0, scale: 1 }
+                      : { opacity: 0, y: 28, scale: 0.96 }
                   }
                   transition={{
-                    duration: reduceMotion ? 0 : 0.9,
+                    duration: reduceMotion ? 0 : 0.95,
                     delay: reduceMotion || !dateRevealed ? 0 : part.delay,
                     ease: invitationEase,
                   }}

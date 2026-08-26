@@ -1,7 +1,11 @@
 import { motion, useReducedMotion } from "framer-motion";
 
 import ScrollReveal from "../../shared/ScrollReveal";
-import { invitationEase, invitationTransition, revealScale } from "../../shared/motion";
+import {
+  invitationEase,
+  invitationTransition,
+  revealFade,
+} from "../../shared/motion";
 import type { InvitationContent } from "../../shared/types";
 import { TimelineIcon } from "../components/TimelineIcons";
 import SectionScrollShadow from "../components/SectionScrollShadow";
@@ -17,7 +21,7 @@ function TimelineSection({ content }: TimelineSectionProps) {
   if (!timeline?.length) return null;
 
   return (
-    <ScrollReveal as="section" className="sf-section" variants={revealScale}>
+    <ScrollReveal as="section" className="sf-section" variants={revealFade}>
       <article
         className="sf-timeline-section"
         data-section="timeline"
@@ -26,40 +30,45 @@ function TimelineSection({ content }: TimelineSectionProps) {
         <SectionScrollShadow>
           <motion.div
             className="sf-striped-frame"
-            initial={{ opacity: 0, scale: 0.96 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, amount: 0.4 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.35 }}
             transition={{ duration: 0.85, ease: invitationEase }}
           >
             <div className="sf-striped-frame__inner sf-striped-frame__inner--timeline">
-              <h2 className="sf-heading">Dan venčanja</h2>
+              <h2 className="sf-heading sf-heading--timeline">Dan venčanja</h2>
+              <span className="sf-ornament" aria-hidden="true">
+                <span className="sf-ornament__line" />
+                <span className="sf-ornament__diamond" />
+                <span className="sf-ornament__line" />
+              </span>
 
-              <ul className="sf-timeline">
+              <ol className="sf-timeline">
                 {timeline.map((item, index) => (
                   <motion.li
                     key={item.id}
                     className="sf-timeline__item"
-                    initial={
-                      reduceMotion ? false : { opacity: 0, y: 18, scale: 0.9 }
-                    }
-                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                    viewport={{ once: true, amount: 0.5 }}
+                    initial={reduceMotion ? false : { opacity: 0, y: 14 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.4 }}
                     transition={{
                       ...invitationTransition,
-                      delay: reduceMotion ? 0 : index * 0.1,
+                      delay: reduceMotion ? 0 : index * 0.08,
                       ease: invitationEase,
                     }}
                   >
+                    <span className="sf-timeline__time">{item.time}</span>
+
                     <motion.span
                       className="sf-timeline__icon-wrap"
-                      animate={reduceMotion ? undefined : { y: [0, -3, 0] }}
+                      animate={reduceMotion ? undefined : { y: [0, -2.5, 0] }}
                       transition={
                         reduceMotion
                           ? undefined
                           : {
-                              duration: 2.4,
+                              duration: 2.6,
                               repeat: Infinity,
-                              delay: index * 0.25,
+                              delay: index * 0.2,
                               ease: "easeInOut",
                             }
                       }
@@ -69,10 +78,15 @@ function TimelineSection({ content }: TimelineSectionProps) {
                         className="sf-timeline__icon"
                       />
                     </motion.span>
-                    <span className="sf-timeline__time">{item.time}</span>
+
+                    {item.title ? (
+                      <span className="sf-timeline__title">{item.title}</span>
+                    ) : (
+                      <span className="sf-timeline__title" aria-hidden="true" />
+                    )}
                   </motion.li>
                 ))}
-              </ul>
+              </ol>
             </div>
           </motion.div>
         </SectionScrollShadow>

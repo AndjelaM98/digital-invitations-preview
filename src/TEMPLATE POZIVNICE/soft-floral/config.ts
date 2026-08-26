@@ -14,6 +14,8 @@ export const softFloralConfig: InvitationTemplateConfig = {
   sections: [
     { id: "hero", component: "HeroSection" },
     { id: "main-event", component: "MainEventSection" },
+    { id: "calendar", component: "CalendarSection" },
+    { id: "moments", component: "MomentsSection" },
     { id: "timeline", component: "TimelineSection" },
     { id: "details", component: "DetailsSection" },
     { id: "rsvp", component: "RsvpSection" },

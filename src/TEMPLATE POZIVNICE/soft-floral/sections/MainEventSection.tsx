@@ -1,54 +1,50 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 import ScrollReveal from "../../shared/ScrollReveal";
-import { invitationEase, revealScale } from "../../shared/motion";
+import { invitationEase, revealFade } from "../../shared/motion";
 import type { InvitationContent } from "../../shared/types";
 import SectionScrollShadow from "../components/SectionScrollShadow";
+
 type MainEventSectionProps = {
   content: InvitationContent;
 };
 
 function MainEventSection({ content }: MainEventSectionProps) {
   const { venue, eventDateLabel } = content;
+  const reduceMotion = useReducedMotion();
 
   return (
-    <ScrollReveal
-      as="section"
-      className="sf-section"
-      variants={revealScale}
-    >
+    <ScrollReveal as="section" className="sf-section" variants={revealFade}>
       <SectionScrollShadow>
-      <motion.article
-        className="sf-card sf-card--bordered"
-        data-section="main-event"
-        aria-label="Glavni događaj"
-        whileHover={{ y: -2 }}
-        transition={{ duration: 0.3, ease: invitationEase }}
-      >
-        <motion.h2
-          className="sf-heading"
-          initial={{ opacity: 0, letterSpacing: "0.32em" }}
-          whileInView={{ opacity: 1, letterSpacing: "0.18em" }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: invitationEase }}
+        <motion.article
+          className="sf-card sf-card--soft sf-card--event"
+          data-section="main-event"
+          aria-label="Kada i gde"
+          initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.85, ease: invitationEase }}
         >
-          Glavni događaj
-        </motion.h2>
-        <div className="sf-main-event__body">
-          <p className="sf-main-event__line">{eventDateLabel}</p>
-          {venue && (
-            <>
-              <p className="sf-main-event__line">{venue.timeLabel}</p>
-              <p className="sf-main-event__line sf-main-event__line--venue">
-                {venue.placeName}
-              </p>
-              {venue.address && (
-                <p className="sf-main-event__line">{venue.address}</p>
-              )}
-            </>
-          )}
-        </div>
-      </motion.article>
+          <h2 className="sf-heading sf-heading--event">Kada i gde</h2>
+          <span className="sf-ornament" aria-hidden="true">
+            <span className="sf-ornament__line" />
+            <span className="sf-ornament__diamond" />
+            <span className="sf-ornament__line" />
+          </span>
+
+          <div className="sf-event__meta">
+            <p className="sf-event__date">{eventDateLabel}</p>
+            {venue ? (
+              <>
+                <p className="sf-event__time">{venue.timeLabel}</p>
+                <p className="sf-event__place">{venue.placeName}</p>
+                {venue.address ? (
+                  <p className="sf-event__address">{venue.address}</p>
+                ) : null}
+              </>
+            ) : null}
+          </div>
+        </motion.article>
       </SectionScrollShadow>
     </ScrollReveal>
   );

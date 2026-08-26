@@ -146,28 +146,22 @@ function InviteOpener({ content, onFinished, onMusicUnlock }: InviteOpenerProps)
     if (!video) return;
 
     const markVideoReady = () => {
+      if (videoLoaded.current) return;
       videoLoaded.current = true;
       tryRevealMedia();
-    };
-
-    const finalizeReady = () => {
-      if ("requestVideoFrameCallback" in video) {
-        const videoWithFrame = video as HTMLVideoElement & {
-          requestVideoFrameCallback?: (callback: () => void) => number;
-        };
-        videoWithFrame.requestVideoFrameCallback?.(() => {
-          markVideoReady();
-        });
-        return;
-      }
-      markVideoReady();
     };
 
     const freeze = () => {
       if (!holding.current) return;
       video.pause();
-      if (video.currentTime !== 0) video.currentTime = 0;
-      finalizeReady();
+      try {
+        if (video.currentTime !== 0) video.currentTime = 0;
+      } catch {
+        /* ignore seek errors on some mobile browsers */
+      }
+      // Don't wait for requestVideoFrameCallback — stage is hidden until ready,
+      // so rVFC often never fires and the opener stays blank forever.
+      markVideoReady();
     };
 
     video.load();
@@ -176,9 +170,16 @@ function InviteOpener({ content, onFinished, onMusicUnlock }: InviteOpenerProps)
       freeze();
     } else {
       video.addEventListener("loadeddata", freeze, { once: true });
+      video.addEventListener("error", markVideoReady, { once: true });
     }
 
-    return () => video.removeEventListener("loadeddata", freeze);
+    const failSafe = window.setTimeout(markVideoReady, 5000);
+
+    return () => {
+      window.clearTimeout(failSafe);
+      video.removeEventListener("loadeddata", freeze);
+      video.removeEventListener("error", markVideoReady);
+    };
   }, [reduceMotion, tryRevealMedia]);
 
   useEffect(() => {

@@ -8,10 +8,12 @@ import { SOFT_FLORAL_ID, softFloralConfig } from "./config";
 import { backgroundImage, softFloralDemoContent } from "./content";
 import FlowerGateOpener from "./scenes/FlowerGateOpener";
 import {
+  CalendarSection,
   ClosingSection,
   DetailsSection,
   HeroSection,
   MainEventSection,
+  MomentsSection,
   RsvpSection,
   TimelineSection,
 } from "./sections";
@@ -80,6 +82,8 @@ function SoftFloral({ content = softFloralDemoContent }: SoftFloralProps) {
 
           <HeroSection content={content} />
           <MainEventSection content={content} />
+          <CalendarSection content={content} />
+          <MomentsSection content={content} />
           <TimelineSection content={content} />
           <DetailsSection content={content} />
           <RsvpSection content={content} />

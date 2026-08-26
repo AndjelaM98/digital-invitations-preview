@@ -52,37 +52,31 @@ export const envelopeRomanceDemoContent: InvitationContent = {
       id: "gather",
       time: "15:00",
       title: "Okupljanje",
-      description: "Dobrodošlica uz osveženje",
     },
     {
       id: "ceremony",
       time: "17:00",
       title: "Ceremonija",
-      description: "Razmena zaveta u bašti",
     },
     {
       id: "toast",
       time: "18:30",
       title: "Zdravica",
-      description: "Čaša u čast ljubavi",
     },
     {
       id: "dinner",
       time: "19:30",
       title: "Večera",
-      description: "Svečana trpeza",
     },
     {
       id: "dance",
       time: "21:30",
       title: "Prvi ples",
-      description: "Naša pesma",
     },
     {
       id: "party",
       time: "22:30",
       title: "Proslava",
-      description: "Muzika do zore",
     },
   ],
   dressCode: {
