@@ -63,11 +63,11 @@ const enter = {
 } as const;
 
 const driftMotion = {
-  soft: { y: [0, -10, 0] },
-  softAlt: { y: [0, -7, 0] },
-  bounce: { y: [0, -12, 0] },
-  tremble: { y: [0, -6, 0], rotate: [-0.6, 0.6, -0.6] },
-} as const;
+  soft: { y: [0, -10, 0] as number[] },
+  softAlt: { y: [0, -7, 0] as number[] },
+  bounce: { y: [0, -12, 0] as number[] },
+  tremble: { y: [0, -6, 0] as number[], rotate: [-0.6, 0.6, -0.6] as number[] },
+};
 
 const durationFor: Record<ErRevealKind, number> = {
   rise: 1.05,
