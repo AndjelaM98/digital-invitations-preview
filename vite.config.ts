@@ -20,4 +20,9 @@ function spaFallback(): Plugin {
 export default defineConfig({
   base: "/digital-invitations-preview/",
   plugins: [react(), spaFallback()],
+  server: {
+    proxy: {
+      "/api/memories": "http://127.0.0.1:8787",
+    },
+  },
 });
