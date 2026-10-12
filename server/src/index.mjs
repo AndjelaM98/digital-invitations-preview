@@ -3,9 +3,11 @@ import { existsSync, readFileSync } from "node:fs";
 import { createServer } from "node:http";
 import {
   authRedirectUrl,
+  createPrivateFolder,
   createResumableSession,
   deleteDriveFile,
   exchangeCode,
+  findPrivateFolder,
   forwardChunk,
   getAccessToken,
   queryUpload,
@@ -27,6 +29,7 @@ function repoFile(name) {
 loadEnv(repoFile(".env"));
 loadEnv(repoFile("server/.env"));
 
+const FOLDER_NAME = "Teodora i Lazar - Uspomene";
 const CHUNK_LIMIT = 8 * 1024 * 1024;
 const TEN_MINUTES = 10 * 60 * 1000;
 const KNOWN_ERRORS = new Set([
@@ -36,6 +39,7 @@ const KNOWN_ERRORS = new Set([
   "oauth_exchange_failed",
   "oauth_refresh_failed",
   "drive_session_failed",
+  "drive_folder_failed",
 ]);
 
 const config = {
@@ -47,7 +51,7 @@ const config = {
   redirectUri:
     process.env.GOOGLE_REDIRECT_URI || "http://127.0.0.1:8787/api/memories/oauth/callback",
   folderId: process.env.GOOGLE_DRIVE_FOLDER_ID || "",
-  scope: process.env.GOOGLE_DRIVE_SCOPE || "https://www.googleapis.com/auth/drive",
+  scope: process.env.GOOGLE_DRIVE_SCOPE || "https://www.googleapis.com/auth/drive.file",
   setupSecret: process.env.OWNER_SETUP_SECRET || "",
   maxFileBytes: Number(process.env.MAX_FILE_BYTES || 5 * 1024 * 1024 * 1024),
   maxFiles: Number(process.env.MAX_FILES_PER_BATCH || 40),
@@ -448,6 +452,34 @@ async function handleRelay(request, response, origin) {
   send(response, 200, result, origin);
 }
 
+async function handleCreateFolder(request, response, origin) {
+  if (hitLimit(`admin-folder:${address(request)}`, 8, TEN_MINUTES)) {
+    send(response, 429, { error: "rate" }, origin);
+    return;
+  }
+  const body = await readJson(request);
+  if (!secretMatches(typeof body.setup === "string" ? body.setup : "")) {
+    send(response, 404, { error: "rejected" }, origin);
+    return;
+  }
+  if (config.folderId) {
+    send(response, 200, { folderId: config.folderId, created: false }, origin);
+    return;
+  }
+  if (!loadRefreshToken() || !config.clientId || !config.clientSecret) {
+    send(response, 503, { error: "unavailable" }, origin);
+    return;
+  }
+  const token = await getAccessToken(driveAuth());
+  const existing = await findPrivateFolder({ accessToken: token, name: FOLDER_NAME });
+  if (existing) {
+    send(response, 200, { folderId: existing, created: false }, origin);
+    return;
+  }
+  const folderId = await createPrivateFolder({ accessToken: token, name: FOLDER_NAME });
+  send(response, 201, { folderId, created: true, name: FOLDER_NAME }, origin);
+}
+
 function fail(request, response, origin, error) {
   const code = error instanceof Error ? error.message : "";
   const safe = KNOWN_ERRORS.has(code) ? code : "network";
@@ -540,11 +572,16 @@ const server = createServer(async (request, response) => {
       const where = process.env.GOOGLE_REFRESH_TOKEN ? "env" : saveRefreshToken(token);
       const message =
         where === "volume"
-          ? "Google nalog je povezan. Ovaj prozor možete zatvoriti."
+          ? "Google nalog je povezan. Sada napravite privatni folder, pa njegov ID upišite u GOOGLE_DRIVE_FOLDER_ID. Ovaj prozor možete zatvoriti."
           : where === "env"
             ? "Nalog je već povezan promenljivom okruženja. Novi token nije upisan."
-            : "Nalog je primljen samo u memoriji ovog procesa. Postavite DATA_DIR i TOKEN_ENCRYPTION_KEY, pa povežite nalog ponovo.";
+            : "Nalog je primljen samo u memoriji ovog procesa. Postavite DATA_DIR i TOKEN_ENCRYPTION_KEY, pa povežite nalog ponovo pre kreiranja foldera.";
       html(response, 200, message);
+      return;
+    }
+
+    if (request.method === "POST" && url.pathname === "/api/memories/admin/folder") {
+      await handleCreateFolder(request, response, origin);
       return;
     }
 

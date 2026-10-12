@@ -237,6 +237,52 @@ async function readUploadResult(response, fallbackOffset) {
   return { status: "rejected" };
 }
 
+const FOLDER_MIME = "application/vnd.google-apps.folder";
+
+export async function findPrivateFolder({ accessToken, name }) {
+  const url = new URL("https://www.googleapis.com/drive/v3/files");
+  url.searchParams.set(
+    "q",
+    `name = '${String(name).replace(/'/g, "\\'")}' and mimeType = '${FOLDER_MIME}' and trashed = false`,
+  );
+  url.searchParams.set("fields", "files(id,name)");
+  url.searchParams.set("pageSize", "10");
+  url.searchParams.set("spaces", "drive");
+  const response = await googleFetch(url, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  });
+  if (!response.ok) {
+    console.error("drive_folder_lookup_failed", response.status);
+    await discard(response);
+    throw new Error("drive_folder_failed");
+  }
+  const data = await response.json().catch(() => ({}));
+  const id = Array.isArray(data.files) ? data.files.find((file) => file?.id)?.id : "";
+  return typeof id === "string" ? id : "";
+}
+
+export async function createPrivateFolder({ accessToken, name }) {
+  const response = await googleFetch("https://www.googleapis.com/drive/v3/files?fields=id", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json; charset=UTF-8",
+    },
+    body: JSON.stringify({
+      name,
+      mimeType: FOLDER_MIME,
+    }),
+  });
+  if (response.status !== 200 && response.status !== 201) {
+    console.error("drive_folder_create_failed", response.status);
+    await discard(response);
+    throw new Error("drive_folder_failed");
+  }
+  const data = await response.json().catch(() => ({}));
+  if (!data.id) throw new Error("drive_folder_failed");
+  return String(data.id);
+}
+
 export async function deleteDriveFile({ accessToken, fileId }) {
   const response = await googleFetch(
     `https://www.googleapis.com/drive/v3/files/${encodeURIComponent(fileId)}`,
